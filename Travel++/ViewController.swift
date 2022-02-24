@@ -7,7 +7,7 @@
 
 import UIKit
 import GoogleMaps
-//import FirebaseDatabase
+import FirebaseDatabase
 
 class ViewController: UITabBarController {
 
@@ -16,10 +16,9 @@ class ViewController: UITabBarController {
         // Do any additional setup after loading the view.
         
         // Firebase test queries
-//        let ref = Database.database().reference()
-//        ref.child("someid/name").setValue("User1")
-//
-    }
+        let ref = Database.database().reference()
+        ref.child("someid/name").setValue("User2")
 
+    }
 
 }
