@@ -9,4 +9,6 @@ target 'Travel++' do
   pod 'GoogleMaps', '6.0.0'
   pod 'Google-Maps-iOS-Utils', '4.1.0'
   pod 'CDYelpFusionKit', '3.0.1'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
 end
