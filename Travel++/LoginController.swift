@@ -19,7 +19,11 @@ class LoginController: UIViewController {
     @IBAction func doneButtonTriggered(_ sender: UIButton) {
         //self.performSegue(withIdentifier: "MapSegue", sender: nil)
         
+        // Get our main storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        // Instantiate ViewController with the ID "ViewController" (needs to be set
+        // within the main storyboard file. Click desired view controller and set
+        // "Storyboard ID" in the far right menus accordingly
         let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
         
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
