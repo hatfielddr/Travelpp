@@ -9,10 +9,11 @@ import UIKit
 import CDYelpFusionKit
 import SwiftUI
 
-let yelpAPIClient = CDYelpAPIClient(apiKey: "7sugvLP78ErxaxiLRaRdJMjOwRc_kjl6A5we3iUPiwIDW7CWl-ZNCLdUsGKmvnYqPyd9tzFMhPy7tFQIgoMbWgNnUriYV3vH7Cf4xtFRLLCE6to3nH6ryolQoroXYnYx")
+let yelpAPIClient = CDYelpAPIClient(apiKey: "WfjKuBc7TsCaXr5n6mW_DQ4usE-mE3Gtq0OL59psVDnqVbjitimNRP79fAd6C6bp6vZh3HGSMXQW7sIwRriSVLp9b2yvCI-rT_sW1uhxC5cm4cn_fXQs-_-9cBUVYnYx")
+let numListings = 9
 
 // List is created here with 9 default values otherwise the app has a fit for some reason
-var restaurantList = [Restaurant](repeating: Restaurant(name: ""), count: 9)
+var restaurantList = [Restaurant](repeating: Restaurant(name: "", rating: 0), count: numListings)
 
 class RestaurantListViewController: UITableViewController {
     override func viewDidLoad() {
@@ -35,9 +36,9 @@ class RestaurantListViewController: UITableViewController {
                                        radius: 10000,
                                        categories: [.activeLife, .food],
                                        locale: .english_unitedStates,
-                                       limit: 9,
+                                       limit: numListings,
                                        offset: 0,
-                                       sortBy: .rating,
+                                       sortBy: .distance,
                                        priceTiers: [.oneDollarSign, .twoDollarSigns],
                                        openNow: true,
                                        openAt: nil,
@@ -49,7 +50,7 @@ class RestaurantListViewController: UITableViewController {
               print("\n\n\n\n")
               var count = 0
               for business in businesses {
-                  restaurantList[count] = Restaurant(name: business.name!, isFavorite: false)
+                  restaurantList[count] = Restaurant(name: business.name!, rating: business.rating!, isFavorite: false)
                   count += 1
               }
                 group.leave()
@@ -80,6 +81,7 @@ extension RestaurantListViewController {
         let restaurant = restaurantList[indexPath.row]
         let image = restaurant.isFavorite ? UIImage(systemName: "circle.fill") : UIImage(systemName: "circle")
         cell.nameLabel.text = restaurant.name
+        cell.ratingLabel.text = String(format: "%.1f", restaurant.rating)
         cell.faveButton.setBackgroundImage(image, for: .normal)
         cell.faveButtonAction = {
             restaurantList[indexPath.row].isFavorite.toggle()

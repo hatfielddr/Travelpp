@@ -11,6 +11,7 @@ class RestaurantListCell: UITableViewCell {
     typealias FaveButtonAction = () -> Void
 
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var ratingLabel: UILabel!
     @IBOutlet var faveButton: UIButton!
 
     var faveButtonAction: FaveButtonAction?
