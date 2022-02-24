@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E33096827C7EB9A00F0C73F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */; };
 		277E52BC27B6E7A80041716F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BB27B6E7A80041716F /* AppDelegate.swift */; };
 		277E52BE27B6E7A80041716F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BD27B6E7A80041716F /* SceneDelegate.swift */; };
 		277E52C027B6E7A80041716F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BF27B6E7A80041716F /* ViewController.swift */; };
 		277E52C327B6E7A80041716F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277E52C127B6E7A80041716F /* Main.storyboard */; };
 		277E52C827B6E7A90041716F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277E52C627B6E7A90041716F /* LaunchScreen.storyboard */; };
-		279C6E7827C7F43200C54F48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 279C6E7727C7F43200C54F48 /* Assets.xcassets */; };
 		279C6E7A27C7F4ED00C54F48 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279C6E7927C7F4EC00C54F48 /* MapViewController.swift */; };
+		27D89A1227C818CD00427A05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27D89A1127C818CD00427A05 /* Assets.xcassets */; };
 		7BC0F05527C56D9A009211E0 /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */; };
 		7BC0F05727C56F9E009211E0 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05627C56F9E009211E0 /* Restaurant.swift */; };
 		7BC0F05927C57075009211E0 /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05827C57075009211E0 /* RestaurantListCell.swift */; };
@@ -33,8 +32,8 @@
 		277E52C227B6E7A80041716F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		277E52C727B6E7A90041716F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		277E52C927B6E7A90041716F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		279C6E7727C7F43200C54F48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../Desktop/CS407/Travel++/Assets.xcassets"; sourceTree = "<group>"; };
 		279C6E7927C7F4EC00C54F48 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = "../../../Desktop/CS407/Travel++/MapViewController.swift"; sourceTree = "<group>"; };
+		27D89A1127C818CD00427A05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		550968B1A210C64AAC9D290D /* Pods-Travel++.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Travel++.release.xcconfig"; path = "Target Support Files/Pods-Travel++/Pods-Travel++.release.xcconfig"; sourceTree = "<group>"; };
 		6B8FE09A30F54E5E5A5179B5 /* Pods_Travel__.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travel__.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListViewController.swift; sourceTree = "<group>"; };
@@ -78,12 +77,12 @@
 			isa = PBXGroup;
 			children = (
 				277E52BB27B6E7A80041716F /* AppDelegate.swift */,
+				27D89A1127C818CD00427A05 /* Assets.xcassets */,
 				C32BFD8227C05EE600EA62B5 /* BookmarkView.swift */,
 				277E52BD27B6E7A80041716F /* SceneDelegate.swift */,
 				277E52BF27B6E7A80041716F /* ViewController.swift */,
 				C32BFDA927C1CDE900EA62B5 /* LoginController.swift */,
 				279C6E7927C7F4EC00C54F48 /* MapViewController.swift */,
-				279C6E7727C7F43200C54F48 /* Assets.xcassets */,
 				277E52C127B6E7A80041716F /* Main.storyboard */,
 				277E52C627B6E7A90041716F /* LaunchScreen.storyboard */,
 				277E52C927B6E7A90041716F /* Info.plist */,
@@ -174,7 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				277E52C827B6E7A90041716F /* LaunchScreen.storyboard in Resources */,
-				279C6E7827C7F43200C54F48 /* Assets.xcassets in Resources */,
+				27D89A1227C818CD00427A05 /* Assets.xcassets in Resources */,
 				277E52C327B6E7A80041716F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
