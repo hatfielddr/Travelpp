@@ -56,6 +56,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = vc
         }
 
+    func changeRootViewController(_ vc:UIViewController, animated: Bool = true) {
+        guard let window = self.window else {
+            return
+        }
+        
+        // Change the root view controller
+        window.rootViewController = vc
+    }
 
 }
 
