@@ -17,7 +17,12 @@ class LoginController: UIViewController {
     @IBOutlet var loginButton: UIButton!
     
     @IBAction func doneButtonTriggered(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "MapSegue", sender: self)
+        //self.performSegue(withIdentifier: "MapSegue", sender: nil)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
     }
     
     
