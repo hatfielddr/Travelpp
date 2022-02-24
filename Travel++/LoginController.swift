@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginController: UINavigationController {
+class LoginController: UIViewController {
     typealias DoneButtonAction = () -> Void
     
     var doneButtonAction: DoneButtonAction?
