@@ -10,6 +10,8 @@ import Foundation
 struct Restaurant {
     // Business' name
     var name: String
+    // Rating
+    var rating: Double
     // Delineates favorites currently - feel free to change to something else
     var isFavorite: Bool = false
 }
