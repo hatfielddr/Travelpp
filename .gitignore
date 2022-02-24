@@ -1,4 +1,9 @@
+#API key bearing files (can be commented out if necessary, but be careful of the keys being public)
+AppDelegate.swift
+RestaurantListViewController.swift
+
 Pods/
+
 # OS X Finder
 .DS_Store
 
