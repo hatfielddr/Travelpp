@@ -9,7 +9,7 @@ import UIKit
 import CDYelpFusionKit
 import SwiftUI
 
-let yelpAPIClient = CDYelpAPIClient(apiKey: "WfjKuBc7TsCaXr5n6mW_DQ4usE-mE3Gtq0OL59psVDnqVbjitimNRP79fAd6C6bp6vZh3HGSMXQW7sIwRriSVLp9b2yvCI-rT_sW1uhxC5cm4cn_fXQs-_-9cBUVYnYx")
+let yelpAPIClient = CDYelpAPIClient(apiKey: "")
 
 // List is created here with 9 default values otherwise the app has a fit for some reason
 var restaurantList = [Restaurant](repeating: Restaurant(name: ""), count: 9)
