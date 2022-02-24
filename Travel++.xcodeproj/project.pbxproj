@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E9B1DAA27C8274C0033A12F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */; };
 		272CA27927C81B8B00AD210D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CA27827C81B8B00AD210D /* MapViewController.swift */; };
 		277E52BC27B6E7A80041716F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BB27B6E7A80041716F /* AppDelegate.swift */; };
 		277E52BE27B6E7A80041716F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BD27B6E7A80041716F /* SceneDelegate.swift */; };
@@ -172,6 +173,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E9B1DAA27C8274C0033A12F /* GoogleService-Info.plist in Resources */,
 				277E52C827B6E7A90041716F /* LaunchScreen.storyboard in Resources */,
 				27D89A1227C818CD00427A05 /* Assets.xcassets in Resources */,
 				277E52C327B6E7A80041716F /* Main.storyboard in Resources */,
