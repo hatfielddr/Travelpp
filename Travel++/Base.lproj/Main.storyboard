@@ -158,14 +158,27 @@
                             <outlet property="delegate" destination="P58-ei-SKQ" id="JpO-I6-SPa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="pfc-gc-2L8"/>
+                    <navigationItem key="navigationItem" id="pfc-gc-2L8">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Z6a-7W-Vfr" userLabel="View Favorites">
+                            <rect key="frame" x="128.5" y="5" width="157" height="34.5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" image="star.fill" catalog="system" title="View Favorites" titleAlignment="trailing"/>
+                            <connections>
+                                <action selector="viewFavButtonTriggered:" destination="P58-ei-SKQ" eventType="touchUpInside" id="gdZ-Fj-VbH"/>
+                            </connections>
+                        </button>
+                    </navigationItem>
                     <connections>
                         <outlet property="locationLabel" destination="85b-rZ-U6A" id="EdS-iI-pp0"/>
+                        <outlet property="viewFavButton" destination="Z6a-7W-Vfr" id="sNB-ij-SvI"/>
+                        <segue destination="15y-sZ-vgT" kind="showDetail" identifier="FavsSegue" id="i56-Lk-TAe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Byh-Sg-xeb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3930" y="346"/>
+            <point key="canvasLocation" x="-3930.434782608696" y="345.53571428571428"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="TSW-G3-v2T">
@@ -298,6 +311,46 @@
             </objects>
             <point key="canvasLocation" x="-3010" y="-394"/>
         </scene>
+        <!--Favorites List View Controller-->
+        <scene sceneID="Bg2-8z-m0x">
+            <objects>
+                <tableViewController id="15y-sZ-vgT" customClass="FavoritesListViewController" customModule="Travel__" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="bWb-Pe-EEO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoritesListCell" id="mKT-py-eBQ" customClass="FavoritesListCell" customModule="Travel__" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mKT-py-eBQ" id="Ae9-9M-Fp9">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N0y-ii-xB7">
+                                            <rect key="frame" x="28" y="11" width="342" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="favName" destination="N0y-ii-xB7" id="Xhb-jJ-lbS"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="15y-sZ-vgT" id="dfS-hD-0J7"/>
+                            <outlet property="delegate" destination="15y-sZ-vgT" id="awN-tp-OKh"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VDk-ee-RAe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3930.434782608696" y="1070.7589285714284"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Logo" width="631" height="396"/>
@@ -306,6 +359,7 @@
         <image name="clock" catalog="system" width="128" height="121"/>
         <image name="map" catalog="system" width="128" height="110"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

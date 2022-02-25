@@ -8,17 +8,24 @@
 import UIKit
 import CDYelpFusionKit
 import SwiftUI
+import FirebaseDatabase
 
-let yelpAPIClient = CDYelpAPIClient(apiKey: "WfjKuBc7TsCaXr5n6mW_DQ4usE-mE3Gtq0OL59psVDnqVbjitimNRP79fAd6C6bp6vZh3HGSMXQW7sIwRriSVLp9b2yvCI-rT_sW1uhxC5cm4cn_fXQs-_-9cBUVYnYx")
+let yelpAPIClient = CDYelpAPIClient(apiKey: "5L45BSRF7lJZ1d0A7bYQo9SGHYTIay2ccCmIV3mO6WUEzgoLEJeP4yuvz9VCvBF86mZpT76M7XyYIOC7SLHX8qCB4PVagiMWiKewOojJeAvsHVOZBiXxoAWtKbcXYnYx")
 let numListings = 9
 let location = "San Francisco"
+
+let ref = Database.database().reference()
 
 // List is created here with 9 default values otherwise the app has a fit for some reason
 var restaurantList = [Restaurant](repeating: Restaurant(name: "", rating: 0), count: numListings)
 
 class RestaurantListViewController: UITableViewController {
     @IBOutlet var locationLabel: UILabel!
+    @IBOutlet var viewFavButton: UIButton!
     
+    @IBAction func viewFavButtonTriggered(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "FavsSegue", sender: self)
+    }
     override func viewDidLoad() {
         // Here we replace the default values
         getData()
@@ -83,13 +90,20 @@ extension RestaurantListViewController {
             fatalError("Unable to dequeue RestaurantCell")
         }
         let restaurant = restaurantList[indexPath.row]
-        let image = restaurant.isFavorite ? UIImage(systemName: "circle.fill") : UIImage(systemName: "circle")
+        let image = restaurant.isFavorite ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
         cell.nameLabel.text = restaurant.name
         cell.ratingLabel.text = String(format: "%.1f", restaurant.rating)
         cell.faveButton.setBackgroundImage(image, for: .normal)
         cell.faveButtonAction = {
             restaurantList[indexPath.row].isFavorite.toggle()
             tableView.reloadRows(at: [indexPath], with: .none)
+            let str = String(indexPath.row)
+            if (restaurant.isFavorite == false) {
+                ref.child("bookmarkedRestaurants/name").child(str).setValue(restaurant.name)
+            }
+            if (restaurant.isFavorite == true) {
+                ref.child("bookmarkedRestaurants/name").child(str).setValue(nil)
+            }
         }
         return cell
     }
