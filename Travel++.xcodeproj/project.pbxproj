@@ -20,6 +20,8 @@
 		7BC0F05927C57075009211E0 /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05827C57075009211E0 /* RestaurantListCell.swift */; };
 		C32BFD8327C05EE600EA62B5 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BFD8227C05EE600EA62B5 /* BookmarkView.swift */; };
 		C32BFDAA27C1CDE900EA62B5 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BFDA927C1CDE900EA62B5 /* LoginController.swift */; };
+		C3EC97F827C86AB9005DF63B /* FavoritesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC97F727C86AB9005DF63B /* FavoritesListCell.swift */; };
+		C3EC97FA27C86AEA005DF63B /* FavoritesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */; };
 		CFF8271AF2D27BB7A03DD8B6 /* Pods_Travel__.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8FE09A30F54E5E5A5179B5 /* Pods_Travel__.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		7BC0F05827C57075009211E0 /* RestaurantListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListCell.swift; sourceTree = "<group>"; };
 		C32BFD8227C05EE600EA62B5 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
 		C32BFDA927C1CDE900EA62B5 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C3EC97F727C86AB9005DF63B /* FavoritesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListCell.swift; sourceTree = "<group>"; };
+		C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */,
 				7BC0F05627C56F9E009211E0 /* Restaurant.swift */,
 				7BC0F05827C57075009211E0 /* RestaurantListCell.swift */,
+				C3EC97F727C86AB9005DF63B /* FavoritesListCell.swift */,
+				C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */,
 				0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */,
 			);
 			path = "Travel++";
@@ -249,8 +255,10 @@
 				7BC0F05927C57075009211E0 /* RestaurantListCell.swift in Sources */,
 				277E52C027B6E7A80041716F /* ViewController.swift in Sources */,
 				7BC0F05527C56D9A009211E0 /* RestaurantListViewController.swift in Sources */,
+				C3EC97FA27C86AEA005DF63B /* FavoritesListViewController.swift in Sources */,
 				277E52BC27B6E7A80041716F /* AppDelegate.swift in Sources */,
 				272CA27927C81B8B00AD210D /* MapViewController.swift in Sources */,
+				C3EC97F827C86AB9005DF63B /* FavoritesListCell.swift in Sources */,
 				7BC0F05727C56F9E009211E0 /* Restaurant.swift in Sources */,
 				C32BFD8327C05EE600EA62B5 /* BookmarkView.swift in Sources */,
 				277E52BE27B6E7A80041716F /* SceneDelegate.swift in Sources */,
