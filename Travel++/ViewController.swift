@@ -16,7 +16,7 @@ class ViewController: UITabBarController {
         // Do any additional setup after loading the view.
         
         // *** FIREBASE TEST QUERIES ***
-        let ref = Database.database().reference()
+        /*let ref = Database.database().reference()
         ref.child("someid/name").setValue("User2")
         
         // add Chicago O'Hare International Airport
@@ -35,7 +35,7 @@ class ViewController: UITabBarController {
         ref.child("reviews").childByAutoId().setValue(["review_id":"00003", "user_id":"0001", "restaurant_id":"00001", "description":"My favorite place to eat!", "rating":"5.0"])
         
         // update user 0001's password
-        ref.child("users/0001/password").setValue("safe_password")
+        ref.child("users/0001/password").setValue("safe_password")*/
     }
 
 }
