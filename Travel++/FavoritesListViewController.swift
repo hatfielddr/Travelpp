@@ -26,14 +26,22 @@ class FavoritesListViewController: UITableViewController {
         
         group.enter()
         nameRef.observe(.value, with: { snapshot in
-
-            for child in snapshot.children {
-                //let placeDict = snapshot.value as? [String]
-                favNameList = snapshot.value as! [String]
-                print(favNameList)
-                print(favNameList.count)
+            
+            let unfiltArray = snapshot.value as! [String?]
+            var filtArray: [String] = []
+            
+            for element in unfiltArray {
+                if element != nil {
+                    filtArray.append(element!)
+                }
             }
+            print(unfiltArray)
+            print(filtArray)
+            
+            favNameList = filtArray
+        
         }, withCancel: nil)
+        
         group.leave()
         
         group.notify(queue: .main, execute: {
