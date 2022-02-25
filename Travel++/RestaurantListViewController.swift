@@ -11,14 +11,18 @@ import SwiftUI
 
 let yelpAPIClient = CDYelpAPIClient(apiKey: "WfjKuBc7TsCaXr5n6mW_DQ4usE-mE3Gtq0OL59psVDnqVbjitimNRP79fAd6C6bp6vZh3HGSMXQW7sIwRriSVLp9b2yvCI-rT_sW1uhxC5cm4cn_fXQs-_-9cBUVYnYx")
 let numListings = 9
+let location = "San Francisco"
 
 // List is created here with 9 default values otherwise the app has a fit for some reason
 var restaurantList = [Restaurant](repeating: Restaurant(name: "", rating: 0), count: numListings)
 
 class RestaurantListViewController: UITableViewController {
+    @IBOutlet var locationLabel: UILabel!
+    
     override func viewDidLoad() {
         // Here we replace the default values
         getData()
+        locationLabel.text = location
     }
     
     func getData() {
@@ -30,7 +34,7 @@ class RestaurantListViewController: UITableViewController {
         yelpAPIClient.cancelAllPendingAPIRequests()
         // Query Yelp Fusion API for business results
         yelpAPIClient.searchBusinesses(byTerm: "Food",
-                                       location: "San Francisco",
+                                       location: location,
                                        latitude: nil,
                                        longitude: nil,
                                        radius: 10000,
