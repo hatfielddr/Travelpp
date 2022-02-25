@@ -7,6 +7,7 @@
 
 import UIKit
 
-class FavoriteListCell: UITableViewCell {
+class FavoritesListCell: UITableViewCell {
+    @IBOutlet var favName: UILabel!
     
 }

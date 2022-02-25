@@ -21,7 +21,11 @@ var restaurantList = [Restaurant](repeating: Restaurant(name: "", rating: 0), co
 
 class RestaurantListViewController: UITableViewController {
     @IBOutlet var locationLabel: UILabel!
+    @IBOutlet var viewFavButton: UIButton!
     
+    @IBAction func viewFavButtonTriggered(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "FavsSegue", sender: self)
+    }
     override func viewDidLoad() {
         // Here we replace the default values
         getData()
