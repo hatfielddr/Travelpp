@@ -18,6 +18,9 @@
 		7BC0F05527C56D9A009211E0 /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */; };
 		7BC0F05727C56F9E009211E0 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05627C56F9E009211E0 /* Restaurant.swift */; };
 		7BC0F05927C57075009211E0 /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05827C57075009211E0 /* RestaurantListCell.swift */; };
+		C318672727EAB80D003A1C6F /* FlightListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318672627EAB80D003A1C6F /* FlightListCell.swift */; };
+		C318672927EAB901003A1C6F /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318672827EAB901003A1C6F /* FlightListViewController.swift */; };
+		C318672B27EABA39003A1C6F /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318672A27EABA39003A1C6F /* Flight.swift */; };
 		C32BFD8327C05EE600EA62B5 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BFD8227C05EE600EA62B5 /* BookmarkView.swift */; };
 		C32BFDAA27C1CDE900EA62B5 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BFDA927C1CDE900EA62B5 /* LoginController.swift */; };
 		C3EC97F827C86AB9005DF63B /* FavoritesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC97F727C86AB9005DF63B /* FavoritesListCell.swift */; };
@@ -42,6 +45,9 @@
 		7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListViewController.swift; sourceTree = "<group>"; };
 		7BC0F05627C56F9E009211E0 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		7BC0F05827C57075009211E0 /* RestaurantListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListCell.swift; sourceTree = "<group>"; };
+		C318672627EAB80D003A1C6F /* FlightListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCell.swift; sourceTree = "<group>"; };
+		C318672827EAB901003A1C6F /* FlightListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListViewController.swift; sourceTree = "<group>"; };
+		C318672A27EABA39003A1C6F /* Flight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 		C32BFD8227C05EE600EA62B5 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
 		C32BFDA927C1CDE900EA62B5 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C3EC97F727C86AB9005DF63B /* FavoritesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListCell.swift; sourceTree = "<group>"; };
@@ -89,13 +95,16 @@
 				C32BFDA927C1CDE900EA62B5 /* LoginController.swift */,
 				272CA27827C81B8B00AD210D /* MapViewController.swift */,
 				277E52C127B6E7A80041716F /* Main.storyboard */,
+				C318672627EAB80D003A1C6F /* FlightListCell.swift */,
 				277E52C627B6E7A90041716F /* LaunchScreen.storyboard */,
 				277E52C927B6E7A90041716F /* Info.plist */,
 				7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */,
+				C318672A27EABA39003A1C6F /* Flight.swift */,
 				7BC0F05627C56F9E009211E0 /* Restaurant.swift */,
 				7BC0F05827C57075009211E0 /* RestaurantListCell.swift */,
 				C3EC97F727C86AB9005DF63B /* FavoritesListCell.swift */,
 				C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */,
+				C318672827EAB901003A1C6F /* FlightListViewController.swift */,
 				0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */,
 			);
 			path = "Travel++";
@@ -261,8 +270,11 @@
 				C3EC97F827C86AB9005DF63B /* FavoritesListCell.swift in Sources */,
 				7BC0F05727C56F9E009211E0 /* Restaurant.swift in Sources */,
 				C32BFD8327C05EE600EA62B5 /* BookmarkView.swift in Sources */,
+				C318672727EAB80D003A1C6F /* FlightListCell.swift in Sources */,
+				C318672927EAB901003A1C6F /* FlightListViewController.swift in Sources */,
 				277E52BE27B6E7A80041716F /* SceneDelegate.swift in Sources */,
 				C32BFDAA27C1CDE900EA62B5 /* LoginController.swift in Sources */,
+				C318672B27EABA39003A1C6F /* Flight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

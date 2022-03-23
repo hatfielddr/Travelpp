@@ -41,10 +41,12 @@ class FavoritesListViewController: UITableViewController {
                 print("empty")
                 favNameList = [""]
             }
+            
+            
         
         }, withCancel: nil)
-        
         group.leave()
+        
         
         group.notify(queue: .main, execute: {
             print("Going to Refresh")
