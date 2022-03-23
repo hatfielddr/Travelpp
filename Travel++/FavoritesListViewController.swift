@@ -27,22 +27,26 @@ class FavoritesListViewController: UITableViewController {
         group.enter()
         nameRef.observe(.value, with: { snapshot in
             
-            let unfiltArray = snapshot.value as! [String?]
-            var filtArray: [String] = []
+            if let unfiltArray = snapshot.value as? [String : String] {
+                var filtArray: [String] = []
             
-            for element in unfiltArray {
-                if element != nil {
-                    filtArray.append(element!)
+                for element in unfiltArray {
+                    filtArray.append(element.value)
                 }
-            }
-            print(unfiltArray)
-            print(filtArray)
+                print(unfiltArray)
+                print(filtArray)
             
-            favNameList = filtArray
+                favNameList = filtArray
+            } else {
+                print("empty")
+                favNameList = [""]
+            }
+            
+            
         
         }, withCancel: nil)
-        
         group.leave()
+        
         
         group.notify(queue: .main, execute: {
             print("Going to Refresh")

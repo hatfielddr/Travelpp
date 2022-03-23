@@ -14,7 +14,10 @@ let yelpAPIClient = CDYelpAPIClient(apiKey: "5L45BSRF7lJZ1d0A7bYQo9SGHYTIay2ccCm
 let numListings = 9
 let location = "San Francisco"
 
+
+
 let ref = Database.database().reference()
+
 
 // List is created here with 9 default values otherwise the app has a fit for some reason
 var restaurantList = [Restaurant](repeating: Restaurant(name: "", rating: 0), count: numListings)
@@ -98,11 +101,12 @@ extension RestaurantListViewController {
             restaurantList[indexPath.row].isFavorite.toggle()
             tableView.reloadRows(at: [indexPath], with: .none)
             let str = String(indexPath.row)
+            let indexStr = "rest" + str
             if (restaurant.isFavorite == false) {
-                ref.child("bookmarkedRestaurants/name").child(str).setValue(restaurant.name)
+                ref.child("bookmarkedRestaurants/name").child(indexStr).setValue(restaurant.name)
             }
             if (restaurant.isFavorite == true) {
-                ref.child("bookmarkedRestaurants/name").child(str).setValue(nil)
+                ref.child("bookmarkedRestaurants/name").child(indexStr).setValue(nil)
             }
         }
         return cell
