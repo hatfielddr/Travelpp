@@ -16,7 +16,7 @@ class ViewController: UITabBarController {
         // Do any additional setup after loading the view.
         
         // *** FIREBASE TEST QUERIES ***
-        let ref = Database.database().reference()
+        //let ref = Database.database().reference()
         //ref.child("someid/name").setValue("User2")
         
         // add Chicago O'Hare International Airport
