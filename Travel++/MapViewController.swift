@@ -12,8 +12,9 @@ class MapViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(GMSServices.openSourceLicenseInfo())
         
-        //Indianaplis
+        //Indianapolis
         let latitude = 39.7150
         let longitude = -86.2978
         
@@ -22,7 +23,7 @@ class MapViewController: UIViewController {
 //        let longitude = -122.3790
 
         //set up map view
-        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 18.0)
+        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 19.0)
         let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
         mapView.settings.myLocationButton = true
         mapView.settings.zoomGestures = true

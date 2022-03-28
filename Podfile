@@ -3,6 +3,7 @@
 
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '15.3.1'
+project '/Users/emilyblanchard/Desktop/Travelpp/Travel++.xcodeproj'
 
 target 'Travel++' do
   use_frameworks!
@@ -11,4 +12,6 @@ target 'Travel++' do
   pod 'CDYelpFusionKit', '3.0.1'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Charts'
+  pod 'TinyConstraints'
 end
