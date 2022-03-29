@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 
+var user_id = ""
+var full_name = ""
+var user_email = ""
+
 class LoginController: UIViewController {
     typealias DoneButtonAction = () -> Void
     
@@ -39,6 +43,13 @@ class LoginController: UIViewController {
                     if password == self.password.text! {
                         // password matches; proceed to map view
                         //self.performSegue(withIdentifier: "MapSegue", sender: nil)
+                        
+                        //get user info for later use
+                        user_id = dict["user_id"] as! String
+                        let first_name = dict["first_name"] as! String
+                        let last_name = dict["last_name"] as! String
+                        full_name = first_name + " " + last_name
+                        user_email = dict["email"] as! String
                         
                         // Get our main storyboard
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
