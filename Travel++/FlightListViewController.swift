@@ -8,11 +8,47 @@
 import UIKit
 import SwiftUI
 import FirebaseDatabase
+import Alamofire
+import SwiftyJSON
 
 
-var flightList = [Flight](repeating: Flight(airline: "", date: "", dest: "", flightID: "", flightNo: "", origin: ""), count: numListings)
+var flightList = [Flight](repeating: Flight(airline: "", date: "", dest: "", flightID: "", flightNo: "", origin: ""), count: 1)
 
 class FlightListViewController: UITableViewController {
+    
+    var newFlight = Flight(airline: "", date: "", dest: "", flightID: "",
+                          flightNo: "", origin: "")
+    
+    @IBAction func fetchFlights() {
+        let urlStr = "https://aeroapi.flightaware.com/aeroapi/flights/UAL4-1648098922-fa-0000"
+        let headers : HTTPHeaders = ["Accept":"application/json; charset=UTF-8",
+                                         "x-apikey":"HjhlXTf3o0G0V9tOnA5hU385xU0BKGb5"]
+        AF.request(urlStr, parameters: [:], headers: headers).responseJSON { response in
+            if response.data != nil {
+                do {
+                    let json = try JSON(data: response.data!)
+                    //print(json)
+                    print(json["flights"][0]["destination"]["code"])
+                } catch let error as NSError {
+                    
+                }
+            }
+        }
+    }
+    
+    @IBAction func cancel(segue:UIStoryboardSegue) {
+        
+    }
+
+    @IBAction func done(segue:UIStoryboardSegue) {
+        let flightDetailVC = segue.source as! FlightAddViewController
+        newFlight.origin = flightDetailVC.originAddString
+        newFlight.dest = flightDetailVC.destAddString
+        newFlight.date = flightDetailVC.dateAddString
+           
+        flightList.append(newFlight)
+        tableView.reloadData()
+    }
     
     let nameRef = ref.child("flights").child("00001")
     

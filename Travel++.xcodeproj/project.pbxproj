@@ -16,6 +16,8 @@
 		277E52C827B6E7A90041716F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277E52C627B6E7A90041716F /* LaunchScreen.storyboard */; };
 		27D89A1227C818CD00427A05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27D89A1127C818CD00427A05 /* Assets.xcassets */; };
 		7B8D20BD27F2519C00F6CB9F /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D20BC27F2519C00F6CB9F /* SignUpController.swift */; };
+		7B8D20C127F4084700F6CB9F /* FlightAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D20C027F4084700F6CB9F /* FlightAddViewController.swift */; };
+		7B8D20C327F423C500F6CB9F /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B8D20C227F423C500F6CB9F /* SwiftyJSON.framework */; };
 		7BC0F05527C56D9A009211E0 /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */; };
 		7BC0F05727C56F9E009211E0 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05627C56F9E009211E0 /* Restaurant.swift */; };
 		7BC0F05927C57075009211E0 /* RestaurantListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05827C57075009211E0 /* RestaurantListCell.swift */; };
@@ -49,6 +51,8 @@
 		550968B1A210C64AAC9D290D /* Pods-Travel++.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Travel++.release.xcconfig"; path = "Target Support Files/Pods-Travel++/Pods-Travel++.release.xcconfig"; sourceTree = "<group>"; };
 		6B8FE09A30F54E5E5A5179B5 /* Pods_Travel__.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travel__.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B8D20BC27F2519C00F6CB9F /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		7B8D20C027F4084700F6CB9F /* FlightAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightAddViewController.swift; sourceTree = "<group>"; };
+		7B8D20C227F423C500F6CB9F /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListViewController.swift; sourceTree = "<group>"; };
 		7BC0F05627C56F9E009211E0 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		7BC0F05827C57075009211E0 /* RestaurantListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListCell.swift; sourceTree = "<group>"; };
@@ -71,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B8D20C327F423C500F6CB9F /* SwiftyJSON.framework in Frameworks */,
 				CFF8271AF2D27BB7A03DD8B6 /* Pods_Travel__.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +129,7 @@
 				C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */,
 				C318672827EAB901003A1C6F /* FlightListViewController.swift */,
 				0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */,
+				7B8D20C027F4084700F6CB9F /* FlightAddViewController.swift */,
 			);
 			path = "Travel++";
 			sourceTree = "<group>";
@@ -131,6 +137,7 @@
 		A77C2F0F731867576F2DF7BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B8D20C227F423C500F6CB9F /* SwiftyJSON.framework */,
 				6B8FE09A30F54E5E5A5179B5 /* Pods_Travel__.framework */,
 			);
 			name = Frameworks;
@@ -290,6 +297,7 @@
 				272CA27927C81B8B00AD210D /* MapViewController.swift in Sources */,
 				C3EC97F827C86AB9005DF63B /* FavoritesListCell.swift in Sources */,
 				7BC0F05727C56F9E009211E0 /* Restaurant.swift in Sources */,
+				7B8D20C127F4084700F6CB9F /* FlightAddViewController.swift in Sources */,
 				C32BFD8327C05EE600EA62B5 /* BookmarkView.swift in Sources */,
 				7B8D20BD27F2519C00F6CB9F /* SignUpController.swift in Sources */,
 				C318672727EAB80D003A1C6F /* FlightListCell.swift in Sources */,

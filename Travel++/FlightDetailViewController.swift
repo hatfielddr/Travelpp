@@ -14,8 +14,14 @@ class FlightDetailViewController: UIViewController {
     @IBOutlet var destination: UILabel!
     
     @IBOutlet var dateChange: UILabel!
+    @IBOutlet weak var originAdd: UITextField!
+    @IBOutlet weak var destAdd: UITextField!
+    @IBOutlet weak var dateAdd: UITextField!
     
     var flight: Flight?
+    var originAddString: String = ""
+    var destAddString: String = ""
+    var dateAddString: String = ""
     
     
     override func viewDidLoad() {
@@ -24,6 +30,5 @@ class FlightDetailViewController: UIViewController {
         destination.text = flight?.dest
         dateChange.text = flight?.date
     }
-    
     
 }

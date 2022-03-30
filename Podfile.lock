@@ -119,13 +119,16 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.0.0)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
+  - Alamofire (= 5.4.3)
   - CDYelpFusionKit (= 3.0.1)
   - Firebase/Core
   - Firebase/Database
   - Google-Maps-iOS-Utils (= 4.1.0)
   - GoogleMaps (= 6.0.0)
+  - SwiftyJSON (= 4.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -145,6 +148,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
@@ -163,7 +167,8 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: df268b152a16bc3b1eea166c8a0f5dd1ad9c6c9f
+PODFILE CHECKSUM: 7e4b57a4903ca7d2b21d3f9a0252280bf043b0ed
 
 COCOAPODS: 1.11.2
