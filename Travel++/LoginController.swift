@@ -29,13 +29,19 @@ class LoginController: UIViewController {
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var signUpButton: UIButton!
     
+    @IBOutlet weak var errMsg: UILabel!
+    
     @IBAction func doneButtonTriggered(_ sender: UIButton) {
+        self.errMsg.isHidden = true
         
         // check for username and password validity with database
         let usersRef = self.database.child("users")
         let query = usersRef.queryOrdered(byChild: "email").queryEqual(toValue: self.username.text!)
         query.observeSingleEvent(of: .value, with: {snapshot in
             if !snapshot.exists() {
+                self.username.text = ""
+                self.password.text = ""
+                self.errMsg.isHidden = false
                 print("invalid email") /// #TODO add invalid email handling here
             } else {
                 // found user with matching email; get user's password from database
@@ -65,6 +71,9 @@ class LoginController: UIViewController {
                         
                         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
                     } else {
+                        self.errMsg.isHidden = false
+                        self.username.text = ""
+                        self.password.text = ""
                         print("invalid password") /// #TODO add invalid password handling here
                     }
                 }
@@ -81,5 +90,10 @@ class LoginController: UIViewController {
         let mainController = storyboard.instantiateViewController(withIdentifier: "SignUpController")
         
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
+    }
+    
+    override func viewDidLoad() {
+        
+        errMsg.isHidden = true
     }
 }
