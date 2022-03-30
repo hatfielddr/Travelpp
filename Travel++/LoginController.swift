@@ -10,8 +10,10 @@ import Firebase
 
 class LoginController: UIViewController {
     typealias DoneButtonAction = () -> Void
+    typealias SignUpButtonAction = () -> Void
     
     var doneButtonAction: DoneButtonAction?
+    var signUpButtonAction: SignUpButtonAction?
     
     let database = Database.database().reference()
     
@@ -19,6 +21,7 @@ class LoginController: UIViewController {
     @IBOutlet var password: UITextField!
     //@IBOutlet var password: UITextInputPasswordRules!
     @IBOutlet var loginButton: UIButton!
+    @IBOutlet var signUpButton: UIButton!
     
     @IBAction func doneButtonTriggered(_ sender: UIButton) {
         
@@ -54,5 +57,16 @@ class LoginController: UIViewController {
                 }
             }
         })
+    }
+    
+    @IBAction func signUpButtonTriggered(_ sender: UIButton) {
+        // Get our main storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        // Instantiate ViewController with the ID "ViewController" (needs to be set
+        // within the main storyboard file. Click desired view controller and set
+        // "Storyboard ID" in the far right menus accordingly
+        let mainController = storyboard.instantiateViewController(withIdentifier: "SignUpController")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
     }
 }
