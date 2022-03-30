@@ -11,4 +11,6 @@ target 'Travel++' do
   pod 'CDYelpFusionKit', '3.0.1'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'FirebaseUI'
+  pod 'FirebaseUI/Auth'
 end
