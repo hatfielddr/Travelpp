@@ -32,7 +32,10 @@ class LoginController: UIViewController {
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var signUpButton: UIButton!
     
+    @IBOutlet weak var errMsg: UILabel!
+    
     @IBAction func doneButtonTriggered(_ sender: UIButton) {
+        self.errMsg.isHidden = true
         
         // sign in user
         Auth.auth().signIn(withEmail: username.text!, password: password.text!)
@@ -61,6 +64,10 @@ class LoginController: UIViewController {
         } else {
             // No user is signed in
             print("not signed in")
+            self.errMsg.isHidden = false
+                          self.username.text = ""
+                          self.password.text = ""
+                          print("invalid password")
         }
         
         // sign out user (for testing purposes; keep commented out unless needed)
@@ -70,7 +77,6 @@ class LoginController: UIViewController {
         catch let error as NSError {
             print(error.localizedDescription)
         }
-        
     }
     
     @IBAction func signUpButtonTriggered(_ sender: UIButton) {
@@ -92,4 +98,10 @@ class LoginController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         Auth.auth().removeStateDidChangeListener(handle!)
       }
+
+    override func viewDidLoad() {
+        
+        errMsg.isHidden = true
+    }
+
 }
