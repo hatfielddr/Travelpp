@@ -7,6 +7,9 @@
 
 import UIKit
 import Firebase
+import FirebaseAuthUI
+
+var handle: AuthStateDidChangeListenerHandle?
 
 var user_id = ""
 var fname = ""
@@ -34,51 +37,46 @@ class LoginController: UIViewController {
     @IBAction func doneButtonTriggered(_ sender: UIButton) {
         self.errMsg.isHidden = true
         
-        // check for username and password validity with database
-        let usersRef = self.database.child("users")
-        let query = usersRef.queryOrdered(byChild: "email").queryEqual(toValue: self.username.text!)
-        query.observeSingleEvent(of: .value, with: {snapshot in
-            if !snapshot.exists() {
-                self.username.text = ""
-                self.password.text = ""
-                self.errMsg.isHidden = false
-                print("invalid email") /// #TODO add invalid email handling here
-            } else {
-                // found user with matching email; get user's password from database
-                for child in snapshot.children {
-                    let snap = child as! DataSnapshot
-                    let dict = snap.value as! [String: Any]
-                    let password = dict["password"] as! String
-                    
-                    // check that the input password matches the database password
-                    if password == self.password.text! {
-                        // password matches; proceed to map view
-                        //self.performSegue(withIdentifier: "MapSegue", sender: nil)
-                        
-                        //get user info for later use
-                        user_id = dict["user_id"] as! String
-                        fname = dict["first_name"] as! String
-                        lname = dict["last_name"] as! String
-                        full_name = fname + " " + lname
-                        user_email = dict["email"] as! String
-                        
-                        // Get our main storyboard
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        // Instantiate ViewController with the ID "ViewController" (needs to be set
-                        // within the main storyboard file. Click desired view controller and set
-                        // "Storyboard ID" in the far right menus accordingly
-                        let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
-                        
-                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
-                    } else {
-                        self.errMsg.isHidden = false
-                        self.username.text = ""
-                        self.password.text = ""
-                        print("invalid password") /// #TODO add invalid password handling here
-                    }
-                }
-            }
-        })
+        // sign in user
+        Auth.auth().signIn(withEmail: username.text!, password: password.text!)
+        
+        // print uid and email, for testing purposes
+        let user = Auth.auth().currentUser
+        if let user = user {
+            let uid = user.uid
+            let email = user.email
+            print(uid)
+            print(email)
+        }
+        
+        if Auth.auth().currentUser != nil {
+            // User is signed in; go to main view
+            print("signed in")
+            
+            // Get our main storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            // Instantiate ViewController with the ID "ViewController" (needs to be set
+            // within the main storyboard file. Click desired view controller and set
+            // "Storyboard ID" in the far right menus accordingly
+            let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+            
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
+        } else {
+            // No user is signed in
+            print("not signed in")
+            self.errMsg.isHidden = false
+                          self.username.text = ""
+                          self.password.text = ""
+                          print("invalid password")
+        }
+        
+        // sign out user (for testing purposes; keep commented out unless needed)
+        do {
+            try Auth.auth().signOut()
+        }
+        catch let error as NSError {
+            print(error.localizedDescription)
+        }
     }
     
     @IBAction func signUpButtonTriggered(_ sender: UIButton) {
@@ -92,8 +90,18 @@ class LoginController: UIViewController {
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        handle = Auth.auth().addStateDidChangeListener { auth, user in
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        Auth.auth().removeStateDidChangeListener(handle!)
+      }
+
     override func viewDidLoad() {
         
         errMsg.isHidden = true
     }
+
 }
