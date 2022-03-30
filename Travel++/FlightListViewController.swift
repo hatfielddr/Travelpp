@@ -95,4 +95,15 @@ extension FlightListViewController {
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FlightDetailSegue" {
+            let detailViewController = segue.destination as! FlightDetailViewController
+            let myIndexPath = self.tableView.indexPathForSelectedRow!
+            let row = myIndexPath.row
+            detailViewController.flight = flightList[row]
+        }
+    }
+    
 }
+
+
