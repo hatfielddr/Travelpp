@@ -15,8 +15,12 @@ class ChangePasswordViewController: UIViewController {
     
     @IBOutlet weak var submit: UIButton!
     
+    @IBOutlet weak var successMsg: UILabel!
     
+    @IBOutlet weak var failMsg: UILabel!
     @IBAction func submitTriggered(_ sender: UIButton) {
+        successMsg.isHidden = true
+        failMsg.isHidden = true
         let usersRef = ref.child("users")
         let query = usersRef.queryOrdered(byChild: "user_id").queryEqual(toValue: user_id)
         
@@ -33,12 +37,25 @@ class ChangePasswordViewController: UIViewController {
                     
                     self.old_pass.text = ""
                     self.new_pass.text = ""
+                    
+                    self.successMsg.isHidden = false
                 
                 } else {
                     print("invalid password") /// #TODO add invalid password handling here
+                    self.old_pass.text = ""
+                    self.new_pass.text = ""
+                    self.failMsg.isHidden = false
                 }
             }
             
         })
+        
+        
+    }
+    
+    override func viewDidLoad() {
+        
+        successMsg.isHidden = true
+        failMsg.isHidden = true
     }
 }

@@ -9,6 +9,8 @@ import UIKit
 import Firebase
 
 var user_id = ""
+var fname = ""
+var lname = ""
 var full_name = ""
 var user_email = ""
 
@@ -46,9 +48,9 @@ class LoginController: UIViewController {
                         
                         //get user info for later use
                         user_id = dict["user_id"] as! String
-                        let first_name = dict["first_name"] as! String
-                        let last_name = dict["last_name"] as! String
-                        full_name = first_name + " " + last_name
+                        fname = dict["first_name"] as! String
+                        lname = dict["last_name"] as! String
+                        full_name = fname + " " + lname
                         user_email = dict["email"] as! String
                         
                         // Get our main storyboard
