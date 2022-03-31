@@ -20,13 +20,10 @@ protocol UpdateEmail {
 class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     
     @IBOutlet weak var signOut: UIButton!
-    
     @IBOutlet weak var changeEmail: UIButton!
-    
     @IBOutlet weak var changeName: UIButton!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var email: UILabel!
-    
     @IBOutlet weak var changePass: UIButton!
     
     @IBAction func changePassTriggered(_ sender: UIButton) {
@@ -43,6 +40,7 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     @IBAction func changeEmailTriggered(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ChangeEmailSegue", sender: self)
     }
+    
     func updateEmail(newEmail: String) {
         email.text = newEmail
     }
@@ -63,9 +61,9 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
             print(error.localizedDescription)
         }
         
+        // go back to login screen
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginController = storyboard.instantiateViewController(withIdentifier: "LoginController")
-        
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginController)
     }
     
@@ -77,11 +75,8 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
         if segue.identifier  == "ChangeEmailSegue" {
             let destination = segue.destination as! ChangeEmailViewController
             destination.delegate = self
-
         }
     }
-    
-   
     
     override func viewDidLoad() {
         print(user_id)
@@ -90,13 +85,10 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
         email.text = user_email
         
         getData()
-        
     }
     
     func getData() {
-        
-        
+
     }
-    
     
 }
