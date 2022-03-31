@@ -15,6 +15,8 @@
 		277E52C327B6E7A80041716F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277E52C127B6E7A80041716F /* Main.storyboard */; };
 		277E52C827B6E7A90041716F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277E52C627B6E7A90041716F /* LaunchScreen.storyboard */; };
 		27ADE30327E3B1EC00138024 /* TSAWaitTimesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ADE30227E3B1EC00138024 /* TSAWaitTimesController.swift */; };
+		27CF336C27F24F1000C83CA8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF336B27F24F1000C83CA8 /* ResultsViewController.swift */; };
+		27CF336E27F2591200C83CA8 /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF336D27F2591200C83CA8 /* GooglePlacesManager.swift */; };
 		27D89A1227C818CD00427A05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27D89A1127C818CD00427A05 /* Assets.xcassets */; };
 		7BC0F05527C56D9A009211E0 /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05427C56D9A009211E0 /* RestaurantListViewController.swift */; };
 		7BC0F05727C56F9E009211E0 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0F05627C56F9E009211E0 /* Restaurant.swift */; };
@@ -38,6 +40,8 @@
 		277E52C727B6E7A90041716F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		277E52C927B6E7A90041716F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27ADE30227E3B1EC00138024 /* TSAWaitTimesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSAWaitTimesController.swift; sourceTree = "<group>"; };
+		27CF336B27F24F1000C83CA8 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		27CF336D27F2591200C83CA8 /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
 		27D89A1127C818CD00427A05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		550968B1A210C64AAC9D290D /* Pods-Travel++.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Travel++.release.xcconfig"; path = "Target Support Files/Pods-Travel++/Pods-Travel++.release.xcconfig"; sourceTree = "<group>"; };
 		6B8FE09A30F54E5E5A5179B5 /* Pods_Travel__.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Travel__.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +104,8 @@
 				C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */,
 				0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */,
 				27ADE30227E3B1EC00138024 /* TSAWaitTimesController.swift */,
+				27CF336B27F24F1000C83CA8 /* ResultsViewController.swift */,
+				27CF336D27F2591200C83CA8 /* GooglePlacesManager.swift */,
 			);
 			path = "Travel++";
 			sourceTree = "<group>";
@@ -265,6 +271,8 @@
 				C3EC97F827C86AB9005DF63B /* FavoritesListCell.swift in Sources */,
 				7BC0F05727C56F9E009211E0 /* Restaurant.swift in Sources */,
 				C32BFD8327C05EE600EA62B5 /* BookmarkView.swift in Sources */,
+				27CF336E27F2591200C83CA8 /* GooglePlacesManager.swift in Sources */,
+				27CF336C27F24F1000C83CA8 /* ResultsViewController.swift in Sources */,
 				277E52BE27B6E7A80041716F /* SceneDelegate.swift in Sources */,
 				C32BFDAA27C1CDE900EA62B5 /* LoginController.swift in Sources */,
 			);

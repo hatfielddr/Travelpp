@@ -7,6 +7,7 @@ project '/Users/emilyblanchard/Desktop/Travelpp/Travel++.xcodeproj'
 
 target 'Travel++' do
   use_frameworks!
+  pod 'GooglePlaces', '6.0.0'
   pod 'GoogleMaps', '6.0.0'
   pod 'Google-Maps-iOS-Utils', '4.1.0'
   pod 'CDYelpFusionKit', '3.0.1'

@@ -202,16 +202,6 @@
             </objects>
             <point key="canvasLocation" x="-3930" y="-1266"/>
         </scene>
-        <!--Map-->
-        <scene sceneID="Gd9-56-uka">
-            <objects>
-                <viewController storyboardIdentifier="MapViewController" title="Map" id="eOO-5P-bkI" customClass="MapViewController" customModule="Travel__" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="y2P-Fr-wAx"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Shg-5c-0Bq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-6759" y="346"/>
-        </scene>
         <!--Flights-->
         <scene sceneID="z40-ol-hMF">
             <objects>
@@ -252,12 +242,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <searchBar key="tableFooterView" contentMode="redraw" text="" id="aze-Yr-OJa">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
                     </tableView>
                     <navigationItem key="navigationItem" id="Ja2-zZ-TUS"/>
                 </viewController>
@@ -270,17 +254,71 @@
             <objects>
                 <navigationController title="Map" id="s9C-CL-t2x" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" id="RoT-35-Qmm"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iaU-6O-Qe4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="iaU-6O-Qe4">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="eOO-5P-bkI" kind="relationship" relationship="rootViewController" id="ugk-hB-cFU"/>
+                        <segue destination="OxN-aj-xNx" kind="relationship" relationship="rootViewController" id="U8P-7Q-fNb"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTC-gG-yUR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6345" y="-394"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="WiI-Yq-PIE">
+            <objects>
+                <viewController id="OxN-aj-xNx" customClass="MapViewController" customModule="Travel__" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aGa-y6-GPd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESs-Wt-O6a">
+                                <rect key="frame" x="358" y="24" width="33" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="+"/>
+                                <connections>
+                                    <action selector="ZoomIn:" destination="OxN-aj-xNx" eventType="primaryActionTriggered" id="qg7-1S-TyU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KkX-2v-eV1">
+                                <rect key="frame" x="359" y="65" width="31" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="-"/>
+                                <connections>
+                                    <action selector="ZoomOut:" destination="OxN-aj-xNx" eventType="primaryActionTriggered" id="cdh-tt-LO9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Gb-UB-dHg">
+                                <rect key="frame" x="360" y="112" width="30" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <buttonConfiguration key="configuration" style="filled" image="location" catalog="system"/>
+                                <connections>
+                                    <action selector="currentLocation:" destination="OxN-aj-xNx" eventType="primaryActionTriggered" id="hop-fH-QAR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="bB1-Xd-TdK"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yfI-I0-rWE"/>
+                    <connections>
+                        <outlet property="currentLocationButton" destination="3Gb-UB-dHg" id="hRf-uR-1PM"/>
+                        <outlet property="mapView" destination="aGa-y6-GPd" id="KOd-11-Dvt"/>
+                        <outlet property="zoomIn" destination="ESs-Wt-O6a" id="XIL-Bv-nFs"/>
+                        <outlet property="zoomOut" destination="KkX-2v-eV1" id="Qsh-lY-KuX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XMc-4g-cr7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6346.376811594203" y="324.77678571428572"/>
         </scene>
         <!--Flights-->
         <scene sceneID="Ea5-1R-bgH">
@@ -390,26 +428,13 @@
             </objects>
             <point key="canvasLocation" x="-1978" y="1088"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="OkY-vG-ORQ">
-            <objects>
-                <viewController id="qxf-9D-KYQ" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="OZc-Ct-nBl">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oui-sX-uQT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-38" y="-29"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Logo" width="631" height="396"/>
         <image name="airplane" catalog="system" width="128" height="115"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="clock" catalog="system" width="128" height="121"/>
+        <image name="location" catalog="system" width="128" height="118"/>
         <image name="map" catalog="system" width="128" height="110"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="star" catalog="system" width="128" height="116"/>

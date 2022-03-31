@@ -96,6 +96,7 @@ PODS:
   - GoogleMaps/Base (6.0.0)
   - GoogleMaps/Maps (6.0.0):
     - GoogleMaps/Base
+  - GooglePlaces (6.0.0)
   - GoogleUtilities/AppDelegateSwizzler (7.7.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -131,6 +132,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Google-Maps-iOS-Utils (= 4.1.0)
   - GoogleMaps (= 6.0.0)
+  - GooglePlaces (= 6.0.0)
   - TinyConstraints
 
 SPEC REPOS:
@@ -148,6 +150,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleMaps
+    - GooglePlaces
     - GoogleUtilities
     - leveldb-library
     - nanopb
@@ -168,12 +171,13 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: ae033c3aad67e68294369373056b4d74cc8ae0d6
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleMaps: 750f237920fa44dd32de0c0d2004d35cb2c688f3
+  GooglePlaces: c97d96ae68594acb64035c9ca9f26fbfc1d23af1
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: 047f60e9e677fc27c371f86ee5111f70c92181e0
+PODFILE CHECKSUM: c9f6ea88a4a6bb99b9c1f1ac6bcd4199f36225df
 
 COCOAPODS: 1.11.2
