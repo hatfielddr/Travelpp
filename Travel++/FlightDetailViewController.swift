@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuthUI
 
 class FlightDetailViewController: UIViewController {
     typealias EditButtonAction = () -> Void
@@ -39,7 +40,22 @@ class FlightDetailViewController: UIViewController {
     
     @IBAction func deleteButtonTriggered(_ sender: UIButton) {
         print("clicked delete")
-        //ref.child("restaurants/00002").removeValue()
+        
+        // get flight ID
+        let flight_id = "UA4417"
+        
+        // get current user
+        let user = Auth.auth().currentUser
+        if let user = user {
+            let uid = user.uid
+            print("User signed in")
+            
+            // remove trip from database
+            database.child("users/\(uid)/flights/\(flight_id)").removeValue()
+            
+        } else {
+            print("No user signed in")
+        }
         
     }
 }
