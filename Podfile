@@ -13,4 +13,6 @@ target 'Travel++' do
   pod 'Firebase/Database'
   pod 'Alamofire', '5.4.3'
   pod 'SwiftyJSON', '4.0'
+  pod 'FirebaseUI'
+  pod 'FirebaseUI/Auth'
 end

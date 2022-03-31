@@ -6,13 +6,19 @@
 //
 
 import UIKit
+import Firebase
 
 class FlightDetailViewController: UIViewController {
+    typealias EditButtonAction = () -> Void
+    typealias DeleteButtonAction = () -> Void
+    
+    var editButtonAction: EditButtonAction?
+    var deleteButtonAction: DeleteButtonAction?
+    
+    let database = Database.database().reference()
     
     @IBOutlet var origin: UILabel!
-    
     @IBOutlet var destination: UILabel!
-    
     @IBOutlet var dateChange: UILabel!
     @IBOutlet weak var originAdd: UITextField!
     @IBOutlet weak var destAdd: UITextField!
@@ -22,7 +28,8 @@ class FlightDetailViewController: UIViewController {
     var originAddString: String = ""
     var destAddString: String = ""
     var dateAddString: String = ""
-    
+    @IBOutlet var editButton: UIButton!
+    @IBOutlet var deleteButton: UIButton!
     
     override func viewDidLoad() {
         // Here we replace the default values
@@ -31,4 +38,13 @@ class FlightDetailViewController: UIViewController {
         dateChange.text = flight?.date
     }
     
+    @IBAction func editButtonTriggered(_ sender: UIButton) {
+        print("clicked edit")
+    }
+    
+    @IBAction func deleteButtonTriggered(_ sender: UIButton) {
+        print("clicked delete")
+        //ref.child("restaurants/00002").removeValue()
+        
+    }
 }

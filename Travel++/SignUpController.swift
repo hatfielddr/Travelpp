@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuthUI
 
 class SignUpController: UIViewController {
     typealias SignUpButtonAction = () -> Void
@@ -21,13 +22,31 @@ class SignUpController: UIViewController {
     @IBOutlet var signUpButton: UIButton!
     
     @IBAction func signUpButtonTriggered(_ sender: UIButton) {
-        // Get our main storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // Instantiate ViewController with the ID "ViewController" (needs to be set
-        // within the main storyboard file. Click desired view controller and set
-        // "Storyboard ID" in the far right menus accordingly
-        let mainController = storyboard.instantiateViewController(withIdentifier: "SignUpController")
-        
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
+        // register new user in database
+        Auth.auth().createUser(withEmail: username.text!, password: password.text!) { authResult, error in
+            self.completeSignUp()
+        }
     }
+    
+    func completeSignUp() {
+        let user = Auth.auth().currentUser
+        if user != nil {
+            // User is signed in; go to main view
+            print("sign up successful")
+            
+            if let user = user {
+                let email = user.email
+                database.child("users").childByAutoId().setValue(["email": email])
+            }
+            
+            // Get our main storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
+        } else {
+            // No user is signed in
+            print("sign up unsuccessful")
+        }
+    }
+    
 }
