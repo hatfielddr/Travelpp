@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuthUI
 
 class ChangeEmailViewController: UIViewController {
     
@@ -16,9 +17,24 @@ class ChangeEmailViewController: UIViewController {
     
     @IBOutlet weak var successMsg: UILabel!
     @IBOutlet weak var submit: UIButton!
+    
     @IBAction func submitTriggered(_ sender: UIButton) {
+        Auth.auth().currentUser?.updateEmail(to: self.new_email.text!) { error in
+            self.completeUpdateEmail()
+        }
+    }
+    
+    func completeUpdateEmail() {
+        var user_id = ""
         
-        ref.child("users").child(user_id).child("email").setValue(self.new_email.text!)
+        let user = Auth.auth().currentUser
+        if let user = user {
+            user_id = user.uid
+        } else {
+            print("No user signed in")
+        }
+        
+        ref.child("users/\(user_id)").updateChildValues(["email": self.new_email.text!])
         
         delegate?.updateEmail(newEmail: self.new_email.text!)
         self.new_email.text = ""
