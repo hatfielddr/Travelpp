@@ -36,7 +36,8 @@ class SignUpController: UIViewController {
             
             if let user = user {
                 let email = user.email
-                database.child("users").childByAutoId().setValue(["email": email])
+                let uid = user.uid
+                database.child("users/\(uid)").setValue(["email": email])
             }
             
             // Get our main storyboard
