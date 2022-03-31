@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuthUI
 
 class ChangePasswordViewController: UIViewController {
     
@@ -21,6 +22,26 @@ class ChangePasswordViewController: UIViewController {
     @IBAction func submitTriggered(_ sender: UIButton) {
         successMsg.isHidden = true
         failMsg.isHidden = true
+        
+        Auth.auth().currentUser?.updatePassword(to: self.new_pass.text!) { error in
+            if let error = error {
+                print("***update password error***")
+                print(error)
+                print("***end update password error***")
+            } else {
+                print("changed password successfully")
+            }
+        }
+        
+        // get current user's id
+        /*var user_id = ""
+        let user = Auth.auth().currentUser
+        if let user = user {
+            user_id = user.uid
+        } else {
+            print("No user signed in")
+        }
+        
         let usersRef = ref.child("users")
         let query = usersRef.queryOrdered(byChild: "user_id").queryEqual(toValue: user_id)
         
@@ -32,29 +53,26 @@ class ChangePasswordViewController: UIViewController {
             
                 // check that the input password matches the database password
                 if password == self.old_pass.text! {
-                    
-                    ref.child("users").child(user_id).child("password").setValue(self.new_pass.text!)
-                    
                     self.old_pass.text = ""
                     self.new_pass.text = ""
                     
                     self.successMsg.isHidden = false
-                
+                    
+                    Auth.auth().currentUser?.updatePassword(to: password) { error in
+                        
+                    }
+                    print("changed password")
                 } else {
-                    print("invalid password") /// #TODO add invalid password handling here
+                    print("invalid password")
                     self.old_pass.text = ""
                     self.new_pass.text = ""
                     self.failMsg.isHidden = false
                 }
             }
-            
-        })
-        
-        
+        })*/
     }
     
     override func viewDidLoad() {
-        
         successMsg.isHidden = true
         failMsg.isHidden = true
     }
