@@ -11,6 +11,7 @@
 		272AD1BA27F6483100D266F8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AD1B927F6483100D266F8 /* ResultsViewController.swift */; };
 		272AD1BC27F6485300D266F8 /* TSAWaitTimesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AD1BB27F6485300D266F8 /* TSAWaitTimesController.swift */; };
 		272AD1BE27F6488600D266F8 /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AD1BD27F6488500D266F8 /* GooglePlacesManager.swift */; };
+		272AD1C027F6540300D266F8 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AD1BF27F6540300D266F8 /* DirectionsViewController.swift */; };
 		272CA27927C81B8B00AD210D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CA27827C81B8B00AD210D /* MapViewController.swift */; };
 		277E52BC27B6E7A80041716F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BB27B6E7A80041716F /* AppDelegate.swift */; };
 		277E52BE27B6E7A80041716F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BD27B6E7A80041716F /* SceneDelegate.swift */; };
@@ -43,6 +44,7 @@
 		272AD1B927F6483100D266F8 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		272AD1BB27F6485300D266F8 /* TSAWaitTimesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSAWaitTimesController.swift; sourceTree = "<group>"; };
 		272AD1BD27F6488500D266F8 /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
+		272AD1BF27F6540300D266F8 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		272CA27827C81B8B00AD210D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		277E52B827B6E7A80041716F /* Travel++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travel++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		277E52BB27B6E7A80041716F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				272AD1B927F6483100D266F8 /* ResultsViewController.swift */,
 				272AD1BB27F6485300D266F8 /* TSAWaitTimesController.swift */,
 				272AD1BD27F6488500D266F8 /* GooglePlacesManager.swift */,
+				272AD1BF27F6540300D266F8 /* DirectionsViewController.swift */,
 			);
 			path = "Travel++";
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				C318673527F3DD1A003A1C6F /* ChangeEmailViewController.swift in Sources */,
 				277E52C027B6E7A80041716F /* ViewController.swift in Sources */,
 				7BC0F05527C56D9A009211E0 /* RestaurantListViewController.swift in Sources */,
+				272AD1C027F6540300D266F8 /* DirectionsViewController.swift in Sources */,
 				272AD1BC27F6485300D266F8 /* TSAWaitTimesController.swift in Sources */,
 				C3EC97FA27C86AEA005DF63B /* FavoritesListViewController.swift in Sources */,
 				277E52BC27B6E7A80041716F /* AppDelegate.swift in Sources */,

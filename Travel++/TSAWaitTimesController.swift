@@ -1,75 +1,129 @@
 //
-//  ResultsViewController.swift
+//  TSAWaitTimesController.swift
 //  Travel++
 //
-//  Created by Emily Blanchard on 3/28/22.
-//  Used iOS Academy tutorial
+//  Created by Emily Blanchard on 3/17/22.
 //
 
 import UIKit
-import CoreLocation
+import Charts
+import TinyConstraints
 
-protocol ResultsViewControllerDelegate: AnyObject {
-    func didTapPlace(with coordinates: CLLocationCoordinate2D)
-}
+class TSAWaitTimesController: UIViewController, ChartViewDelegate {
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    
+    struct Contents: Codable {
+        let day: String
+        let hour: String
+        let max_standard_wait: String
+        let updated: String
+    }
+    
+    struct Times: Codable {
+        let data: [Contents]
+    }
+    
+    var values: [ChartDataEntry] = []
 
-class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    weak var delegate: ResultsViewControllerDelegate?
-    
-    private let tableView: UITableView = {
-        let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    lazy var lineChartView: LineChartView = {
+        //make chart
+        let chartView = LineChartView()
+        chartView.backgroundColor = .systemTeal
         
-        return table
+        //remove rightAxis label
+        chartView.rightAxis.enabled = false
+        
+        //modify yAxis label
+        let yAxis = chartView.leftAxis
+        yAxis.labelFont = .boldSystemFont(ofSize: 12)
+        yAxis.setLabelCount(6, force: false)
+        yAxis.labelTextColor = .white
+        yAxis.axisLineColor = .white
+        yAxis.labelPosition = .outsideChart
+        
+        //create xAxis label
+        let times = ["12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"]
+        
+        //modify xAxis label
+        let xAxis = chartView.xAxis
+        xAxis.valueFormatter = IndexAxisValueFormatter(values: times)
+        xAxis.labelPosition = .bottom
+        xAxis.labelFont = .boldSystemFont(ofSize: 12)
+        xAxis.setLabelCount(6, force: false)
+        xAxis.labelTextColor = .white
+        xAxis.axisLineColor = .systemTeal
+        
+        //chartView.animate(xAxisDuration: 2)
+        
+        return chartView
     }()
     
-    private var places: [Place] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(tableView)
-        view.backgroundColor = .clear
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-    
-    public func update(with places: [Place]) {
-        self.tableView.isHidden = false
-        self.places = places
-        tableView.reloadData()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return places.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = places[indexPath.row].name
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         
-        tableView.isHidden = true
+        //get and set date on wait times page
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+
+        dateLabel.text = dateFormatter.string(from: date)
         
-        let place = places[indexPath.row]
-        GooglePlacesManager.shared.resolveLocation(for: place) { [weak self] result in
-            switch result {
-            case .success(let coordinate):
-                DispatchQueue.main.async {
-                    self?.delegate?.didTapPlace(with: coordinate)
-                }
-            case .failure(let error):
-                print(error)
+        //make chart background
+        view.addSubview(lineChartView)
+        lineChartView.centerInSuperview()
+        lineChartView.width(to: view)
+        lineChartView.heightToWidth(of: view)
+        
+        //get day of week
+        let index = Calendar.current.component(.weekday, from: Date()) // this returns an Int
+        let day = Calendar.current.weekdaySymbols[index - 1] // subtract 1 since the index starts at 1
+        
+        //get json data
+        let urlstring = "https://www.tsa.gov/api/checkpoint_waittime/v1/IND/" + day + ".json"
+        let url = URL(string: urlstring)!
+        let task = URLSession.shared.dataTask(with: url) { [self](data, response, error) in
+            guard let json = data else { return }
+            print(String(data: json, encoding: .utf8)!)
+            
+            let decoder = JSONDecoder()
+            let times = try! decoder.decode(Times.self, from: json)
+            
+            //add data to set entry array
+            for i in 0...23 {
+                let xval = Double(times.data[i].hour)
+                let yval = Double(times.data[i].max_standard_wait)
+                values.append(ChartDataEntry(x: xval!, y: yval!))
+                //print("x: " + times.data[i].hour + ", y: " + times.data[i].max_standard_wait)
             }
+            setData()
         }
+        
+        task.resume()
     }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(entry)
+    }
+    
+    func setData() {
+        print("IN SET DATA")
+        let set1 = LineChartDataSet(entries: values, label: "TSA Wait Times")
+        set1.mode = .cubicBezier
+        set1.drawCirclesEnabled = false
+        set1.lineWidth = 3
+        set1.setColor(.white)
+        set1.fill = Fill(color: .white)
+        set1.fillAlpha = 0.8
+        set1.drawFilledEnabled = true
+        
+        set1.drawHorizontalHighlightIndicatorEnabled = false
+        set1.highlightColor = .systemRed
+        
+        let data = LineChartData(dataSet: set1)
+        data.setDrawValues(false)
+        lineChartView.data = data
+    }
+    
+
 }
