@@ -6,6 +6,7 @@ platform :ios, '15.3.1'
 
 target 'Travel++' do
   use_frameworks!
+  pod 'GooglePlaces', '6.0.0'
   pod 'GoogleMaps', '6.0.0'
   pod 'Google-Maps-iOS-Utils', '4.1.0'
   pod 'CDYelpFusionKit', '3.0.1'
@@ -13,4 +14,6 @@ target 'Travel++' do
   pod 'Firebase/Database'
   pod 'FirebaseUI'
   pod 'FirebaseUI/Auth'
+  pod 'Charts'
+  pod 'TinyConstraints'
 end
