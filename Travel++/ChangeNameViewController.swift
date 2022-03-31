@@ -19,23 +19,28 @@ class ChangeNameViewController: UIViewController {
     @IBOutlet weak var submit: UIButton!
     
     @IBAction func submitTriggered(_ sender: UIButton) {
+        var user_id = ""
+        
+        let user = Auth.auth().currentUser
+        if let user = user {
+            user_id = user.uid
+        } else {
+            print("No user signed in")
+        }
+        
         var f_name = ""
         var l_name = ""
         
-        print(self.first_name.text)
-        print(self.last_name.text)
-        
         if (self.last_name.text == "") {
-            ref.child("users").child(user_id).child("first_name").setValue(self.first_name.text!)
+            ref.child("users/\(user_id)").updateChildValues(["first_name": self.first_name.text!])
             f_name = self.first_name.text!
             l_name = lname
         } else if (self.first_name.text == "") {
-            ref.child("users").child(user_id).child("last_name").setValue(self.last_name.text!)
+            ref.child("users/\(user_id)").updateChildValues(["last_name": self.last_name.text!])
             f_name = fname
             l_name = self.last_name.text!
         } else {
-            ref.child("users").child(user_id).child("first_name").setValue(self.first_name.text!)
-            ref.child("users").child(user_id).child("last_name").setValue(self.last_name.text!)
+            ref.child("users/\(user_id)").updateChildValues(["first_name": self.first_name.text!, "last_name": self.last_name.text!])
             f_name = self.first_name.text!
             l_name = self.last_name.text!
         }
@@ -49,17 +54,6 @@ class ChangeNameViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        let user = Auth.auth().currentUser
-        if let user = user {
-            let uid = user.uid
-            let email = user.email
-            print("User signed in")
-            print(uid)
-            print(email)
-        } else {
-            print("No user signed in")
-        }
-        
         successMsg.isHidden = true
     }
 }
