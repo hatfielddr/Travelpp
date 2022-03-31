@@ -24,8 +24,11 @@ class SignUpController: UIViewController {
     @IBAction func signUpButtonTriggered(_ sender: UIButton) {
         // register new user in database
         Auth.auth().createUser(withEmail: username.text!, password: password.text!) { authResult, error in
+            self.completeSignUp()
         }
-        
+    }
+    
+    func completeSignUp() {
         let user = Auth.auth().currentUser
         if user != nil {
             // User is signed in; go to main view
@@ -38,24 +41,12 @@ class SignUpController: UIViewController {
             
             // Get our main storyboard
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            // Instantiate ViewController with the ID "ViewController" (needs to be set
-            // within the main storyboard file. Click desired view controller and set
-            // "Storyboard ID" in the far right menus accordingly
             let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
-            
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
         } else {
             // No user is signed in
             print("sign up unsuccessful")
         }
-        
-        // sign out user (for testing purposes; keep commented out unless needed)
-        /*do {
-            try Auth.auth().signOut()
-            print("signed out")
-        }
-        catch let error as NSError {
-            print(error.localizedDescription)
-        }*/
     }
+    
 }

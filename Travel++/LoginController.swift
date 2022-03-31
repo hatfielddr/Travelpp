@@ -40,8 +40,12 @@ class LoginController: UIViewController {
         // sign in user
         Auth.auth().signIn(withEmail: username.text!, password: password.text!) { [weak self] authResult, error in
             guard let strongSelf = self else { return }
+            self?.completeSignIn()
         }
         
+    }
+    
+    func completeSignIn() {
         // print uid and email, for testing purposes
         let user = Auth.auth().currentUser
         if let user = user {
@@ -57,11 +61,7 @@ class LoginController: UIViewController {
             
             // Get our main storyboard
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            // Instantiate ViewController with the ID "ViewController" (needs to be set
-            // within the main storyboard file. Click desired view controller and set
-            // "Storyboard ID" in the far right menus accordingly
             let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
-            
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
         } else {
             // No user is signed in
@@ -72,24 +72,12 @@ class LoginController: UIViewController {
             print("invalid password")
         }
         
-        // sign out user (for testing purposes; keep commented out unless needed)
-        /*do {
-            try Auth.auth().signOut()
-            print("signed out")
-        }
-        catch let error as NSError {
-            print(error.localizedDescription)
-        }*/
     }
     
     @IBAction func signUpButtonTriggered(_ sender: UIButton) {
-        // Get our main storyboard
+        // Go to sign up page
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // Instantiate ViewController with the ID "ViewController" (needs to be set
-        // within the main storyboard file. Click desired view controller and set
-        // "Storyboard ID" in the far right menus accordingly
         let mainController = storyboard.instantiateViewController(withIdentifier: "SignUpController")
-        
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
     }
     
