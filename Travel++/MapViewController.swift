@@ -11,11 +11,12 @@ import MapKit
 import GooglePlaces
 import GoogleMaps
 
-class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationManagerDelegate {
+class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate {
     @IBOutlet var mapView: UIView!
     @IBOutlet weak var zoomIn: UIButton!
     @IBOutlet weak var zoomOut: UIButton!
     @IBOutlet weak var currentLocationButton: UIButton!
+    @IBOutlet weak var getDirectionsButton: UIButton!
     
     let searchVC = UISearchController(searchResultsController: ResultsViewController())
     let locationManager = CLLocationManager()
@@ -63,7 +64,25 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         self.view.addSubview(zoomIn)
         self.view.addSubview(zoomOut)
         self.view.addSubview(currentLocationButton)
+        self.view.addSubview(getDirectionsButton)
     }
+//    @IBAction func getDirectionsClicked(_ sender: Any) {
+//        // get a reference to the view controller for the popover
+//        let popController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popoverId")
+//
+//        // set the presentation style
+//        popController.modalPresentationStyle = UIModalPresentationStyle.popover
+//
+//        // set up the popover presentation controller
+//        popController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+//        popController.popoverPresentationController?.delegate = self
+//        popController.popoverPresentationController?.sourceView = (sender as! UIView) // button
+//        popController.popoverPresentationController?.sourceRect = (sender as AnyObject).bounds
+//        popController.modalPresentationStyle = .overCurrentContext
+//
+//        // present the popover
+//        self.present(popController, animated: true, completion: nil)
+//    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }

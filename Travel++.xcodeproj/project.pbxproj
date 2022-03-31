@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E9B1DAA27C8274C0033A12F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */; };
 		272CA27927C81B8B00AD210D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CA27827C81B8B00AD210D /* MapViewController.swift */; };
+		275E848A27F53DDA006AE349 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275E848927F53DDA006AE349 /* DirectionsViewController.swift */; };
 		277E52BC27B6E7A80041716F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BB27B6E7A80041716F /* AppDelegate.swift */; };
 		277E52BE27B6E7A80041716F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BD27B6E7A80041716F /* SceneDelegate.swift */; };
 		277E52C027B6E7A80041716F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E52BF27B6E7A80041716F /* ViewController.swift */; };
@@ -32,6 +33,7 @@
 		0DC869172EBBF963AB76758F /* Pods-Travel++.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Travel++.debug.xcconfig"; path = "Target Support Files/Pods-Travel++/Pods-Travel++.debug.xcconfig"; sourceTree = "<group>"; };
 		0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		272CA27827C81B8B00AD210D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		275E848927F53DDA006AE349 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		277E52B827B6E7A80041716F /* Travel++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travel++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		277E52BB27B6E7A80041716F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		277E52BD27B6E7A80041716F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,7 +95,6 @@
 				277E52BD27B6E7A80041716F /* SceneDelegate.swift */,
 				277E52BF27B6E7A80041716F /* ViewController.swift */,
 				C32BFDA927C1CDE900EA62B5 /* LoginController.swift */,
-				272CA27827C81B8B00AD210D /* MapViewController.swift */,
 				277E52C127B6E7A80041716F /* Main.storyboard */,
 				277E52C627B6E7A90041716F /* LaunchScreen.storyboard */,
 				277E52C927B6E7A90041716F /* Info.plist */,
@@ -104,8 +105,10 @@
 				C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */,
 				0E33096727C7EB9A00F0C73F /* GoogleService-Info.plist */,
 				27ADE30227E3B1EC00138024 /* TSAWaitTimesController.swift */,
+				272CA27827C81B8B00AD210D /* MapViewController.swift */,
 				27CF336B27F24F1000C83CA8 /* ResultsViewController.swift */,
 				27CF336D27F2591200C83CA8 /* GooglePlacesManager.swift */,
+				275E848927F53DDA006AE349 /* DirectionsViewController.swift */,
 			);
 			path = "Travel++";
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BC0F05927C57075009211E0 /* RestaurantListCell.swift in Sources */,
+				275E848A27F53DDA006AE349 /* DirectionsViewController.swift in Sources */,
 				277E52C027B6E7A80041716F /* ViewController.swift in Sources */,
 				7BC0F05527C56D9A009211E0 /* RestaurantListViewController.swift in Sources */,
 				C3EC97FA27C86AEA005DF63B /* FavoritesListViewController.swift in Sources */,

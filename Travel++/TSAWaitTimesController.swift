@@ -10,7 +10,21 @@ import Charts
 import TinyConstraints
 
 class TSAWaitTimesController: UIViewController, ChartViewDelegate {
+    @IBOutlet weak var dateLabel: UILabel!
     
+    
+    struct Contents: Codable {
+        let day: String
+        let hour: String
+        let max_standard_wait: String
+        let updated: String
+    }
+    
+    struct Times: Codable {
+        let data: [Contents]
+    }
+    
+    var values: [ChartDataEntry] = []
 
     lazy var lineChartView: LineChartView = {
         //make chart
@@ -47,12 +61,45 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //get and set date on wait times page
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+
+        dateLabel.text = dateFormatter.string(from: date)
+        
+        //make chart background
         view.addSubview(lineChartView)
         lineChartView.centerInSuperview()
         lineChartView.width(to: view)
         lineChartView.heightToWidth(of: view)
         
-        setData()
+        //get day of week
+        let index = Calendar.current.component(.weekday, from: Date()) // this returns an Int
+        let day = Calendar.current.weekdaySymbols[index - 1] // subtract 1 since the index starts at 1
+        
+        //get json data
+        let urlstring = "https://www.tsa.gov/api/checkpoint_waittime/v1/IND/" + day + ".json"
+        let url = URL(string: urlstring)!
+        let task = URLSession.shared.dataTask(with: url) { [self](data, response, error) in
+            guard let json = data else { return }
+            print(String(data: json, encoding: .utf8)!)
+            
+            let decoder = JSONDecoder()
+            let times = try! decoder.decode(Times.self, from: json)
+            
+            //add data to set entry array
+            for i in 0...23 {
+                let xval = Double(times.data[i].hour)
+                let yval = Double(times.data[i].max_standard_wait)
+                values.append(ChartDataEntry(x: xval!, y: yval!))
+                //print("x: " + times.data[i].hour + ", y: " + times.data[i].max_standard_wait)
+            }
+            setData()
+        }
+        
+        task.resume()
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
@@ -60,7 +107,8 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate {
     }
     
     func setData() {
-        let set1 = LineChartDataSet(entries: yValues, label: "TSA Wait Times")
+        print("IN SET DATA")
+        let set1 = LineChartDataSet(entries: values, label: "TSA Wait Times")
         set1.mode = .cubicBezier
         set1.drawCirclesEnabled = false
         set1.lineWidth = 3
@@ -77,22 +125,5 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate {
         lineChartView.data = data
     }
     
-    let yValues: [ChartDataEntry] = [
-        ChartDataEntry(x: 12.0, y: 10.0),
-        ChartDataEntry(x: 1.0, y: 5.0),
-        ChartDataEntry(x: 2.0, y: 7.0),
-        ChartDataEntry(x: 3.0, y: 5.0),
-        ChartDataEntry(x: 4.0, y: 10.0),
-        ChartDataEntry(x: 5.0, y: 6.0),
-        ChartDataEntry(x: 6.0, y: 5.0),
-        ChartDataEntry(x: 7.0, y: 7.0),
-        ChartDataEntry(x: 8.0, y: 8.0),
-        ChartDataEntry(x: 9.0, y: 12.0),
-        ChartDataEntry(x: 10.0, y: 13.0),
-        ChartDataEntry(x: 11.0, y: 5.0),
-        ChartDataEntry(x: 12.0, y: 7.0),
-        ChartDataEntry(x: 12.0, y: 3.0),
-        ChartDataEntry(x: 4.0, y: 15.0)
-    ]
 
 }
