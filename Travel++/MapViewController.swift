@@ -11,6 +11,12 @@ import MapKit
 import GooglePlaces
 import GoogleMaps
 
+var currentLatitude = 0.0
+var currentLongitude = 0.0
+var latitude = 39.8283
+var longitude = -98.5795
+
+
 class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate {
     @IBOutlet var mapView: UIView!
     @IBOutlet weak var zoomIn: UIButton!
@@ -20,12 +26,8 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
     
     let searchVC = UISearchController(searchResultsController: ResultsViewController())
     let locationManager = CLLocationManager()
-    
-    var latitude = 39.8283
-    var longitude = -98.5795
+
     var zoom = Float(4.0)
-    var currentLatitude = 0.0;
-    var currentLongitude = 0.0;
     
     
     override func viewDidLoad() {
@@ -48,7 +50,7 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         }
         
         //set up initial map location
-        let camera = GMSCameraPosition.camera(withLatitude: self.latitude, longitude: self.longitude, zoom: self.zoom)
+        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: self.zoom)
         let map = GMSMapView.map(withFrame: mapView.bounds, camera: camera)
         
         map.isMyLocationEnabled = true

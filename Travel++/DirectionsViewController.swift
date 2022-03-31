@@ -6,62 +6,79 @@
 //
 
 import UIKit
+import MapKit
 
-class DirectionsViewController: UIViewController {
+class DirectionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverControllerDelegate {
     
-    /*struct TextValue: Codable {
-        let text: String
-        let value: Int
-    }
-    
-    struct LatLng: Codable {
-        let lat : Float
-        let lng : Float
-    }
-    
-    struct Steps: Codable {
-        let distance: TextValue
-        let duration: TextValue
-        let end_location: LatLng
-        let html_instructions: String
-    }
-    
-    struct Legs: Codable {
-        let steps: Steps
-    }
-    
-    struct Routes: Codable {
-        let legs: Legs
-    }
-    
-    struct Directions: Codable {
-        var status: String
-        var routes: Routes
-    }*/
+    @IBOutlet var directionsTable: UITableView!
+    var steps = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        pullDirections()
         
-        let apikey = "AIzaSyA7og50VFTk6EC9H-cq09vQk5xGA2znJJc"
-        let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&key=" + apikey)!
+        self.directionsTable.dataSource = self;
+        self.directionsTable.delegate = self;
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("gone")
+        steps = []
         
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let json = data else { return }
-            print(String(data: json, encoding: .utf8)!)
-            
-            let directions = try? JSONSerialization.jsonObject(with: json, options: [])
-            
-            
-            /*let decoder = JSONDecoder()
-            let directions = try! decoder.decode(Directions.self, from: json)*/
-            
-            //print("STATUS: " + directions.status)
-            //print("ROUTE: ")
-            
-            /*for step in directions.routes.legs.steps.length {
-                print(directions.routes.steps.html_instructions)
-            }*/
+        //call function to clear directionsTable
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                steps.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         }
-        task.resume()
+    
+    func pullDirections() {
+    
+        let p1 = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude))
+        let p2 = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: p1)
+        request.destination = MKMapItem(placemark: p2)
+        request.transportType = .automobile
+        
+        let directions = MKDirections(request: request)
+
+        directions.calculate { response, error in
+              guard let route = response?.routes.first else { return }
+//              mapView.addAnnotations([p1, p2])
+//              mapView.addOverlay(route.polyline)
+//              mapView.setVisibleMapRect(
+//                route.polyline.boundingMapRect,
+//                edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20),
+//                animated: true)
+            self.steps = route.steps.map { $0.instructions }.filter { !$0.isEmpty }
+            print(self.steps)
+            self.directionsTable.reloadData()
+        }
+    }
+
+    func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        if let cell = directionsTable.dequeueReusableCell(withIdentifier: "StepCell") {
+            cell.textLabel!.numberOfLines = 0
+            cell.textLabel!.lineBreakMode = .byWordWrapping
+            cell.textLabel!.font = UIFont.systemFont(ofSize: 14.0)
+            cell.textLabel!.text = steps[indexPath.row]
+            return cell
+            
+        } else {
+            return UITableViewCell()
+        }
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Use length of array a stable row count.
+        return steps.count
     }
 }
