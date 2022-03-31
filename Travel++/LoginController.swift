@@ -38,7 +38,9 @@ class LoginController: UIViewController {
         self.errMsg.isHidden = true
         
         // sign in user
-        Auth.auth().signIn(withEmail: username.text!, password: password.text!)
+        Auth.auth().signIn(withEmail: username.text!, password: password.text!) { [weak self] authResult, error in
+            guard let strongSelf = self else { return }
+        }
         
         // print uid and email, for testing purposes
         let user = Auth.auth().currentUser

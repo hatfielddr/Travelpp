@@ -23,20 +23,18 @@ class SignUpController: UIViewController {
     
     @IBAction func signUpButtonTriggered(_ sender: UIButton) {
         // register new user in database
-        Auth.auth().createUser(withEmail: username.text!, password: password.text!)
-        
-        // print uid and email, for testing purposes
-        let user = Auth.auth().currentUser
-        if let user = user {
-            let uid = user.uid
-            let email = user.email
-            print(uid)
-            print(email)
+        Auth.auth().createUser(withEmail: username.text!, password: password.text!) { authResult, error in
         }
         
-        if Auth.auth().currentUser != nil {
+        let user = Auth.auth().currentUser
+        if user != nil {
             // User is signed in; go to main view
             print("sign up successful")
+            
+            if let user = user {
+                let email = user.email
+                database.child("users").childByAutoId().setValue(["email": email])
+            }
             
             // Get our main storyboard
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
