@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuthUI
 
 protocol UpdateName {
     func updateName(newName: String)
@@ -17,6 +19,7 @@ protocol UpdateEmail {
 
 class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     
+    @IBOutlet weak var signOut: UIButton!
     
     @IBOutlet weak var changeEmail: UIButton!
     
@@ -42,6 +45,28 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     }
     func updateEmail(newEmail: String) {
         email.text = newEmail
+    }
+    
+    @IBAction func signOutTriggered(_ sender: UIButton) {
+        do {
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let email = user.email
+                print("\(email) is signed in")
+            } else {
+                print("No user signed in")
+            }
+            try Auth.auth().signOut()
+            print("\(email) signed out")
+        }
+        catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginController = storyboard.instantiateViewController(withIdentifier: "LoginController")
+        
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginController)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -36,7 +36,7 @@ class SignUpController: UIViewController {
         
         if Auth.auth().currentUser != nil {
             // User is signed in; go to main view
-            print("signed in")
+            print("sign up successful")
             
             // Get our main storyboard
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -48,15 +48,16 @@ class SignUpController: UIViewController {
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
         } else {
             // No user is signed in
-            print("not signed in")
+            print("sign up unsuccessful")
         }
         
         // sign out user (for testing purposes; keep commented out unless needed)
-        do {
+        /*do {
             try Auth.auth().signOut()
+            print("signed out")
         }
         catch let error as NSError {
             print(error.localizedDescription)
-        }
+        }*/
     }
 }

@@ -65,18 +65,19 @@ class LoginController: UIViewController {
             // No user is signed in
             print("not signed in")
             self.errMsg.isHidden = false
-                          self.username.text = ""
-                          self.password.text = ""
-                          print("invalid password")
+            self.username.text = ""
+            self.password.text = ""
+            print("invalid password")
         }
         
         // sign out user (for testing purposes; keep commented out unless needed)
-        do {
+        /*do {
             try Auth.auth().signOut()
+            print("signed out")
         }
         catch let error as NSError {
             print(error.localizedDescription)
-        }
+        }*/
     }
     
     @IBAction func signUpButtonTriggered(_ sender: UIButton) {
@@ -100,6 +101,16 @@ class LoginController: UIViewController {
       }
 
     override func viewDidLoad() {
+        let user = Auth.auth().currentUser
+        if let user = user {
+            let uid = user.uid
+            let email = user.email
+            print("User signed in")
+            print(uid)
+            print(email)
+        } else {
+            print("No user signed in")
+        }
         
         errMsg.isHidden = true
     }
