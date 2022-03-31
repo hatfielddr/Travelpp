@@ -19,6 +19,10 @@ protocol UpdateEmail {
 
 class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     
+    let database = Database.database().reference()
+    let firstname = ""
+    let lastname = ""
+    
     @IBOutlet weak var signOut: UIButton!
     @IBOutlet weak var changeEmail: UIButton!
     @IBOutlet weak var changeName: UIButton!
@@ -33,6 +37,7 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     @IBAction func changeNameTriggered(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ChangeNameSegue", sender: self)
     }
+    
     func updateName(newName: String) {
         name.text = newName
     }
@@ -50,12 +55,12 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
             let user = Auth.auth().currentUser
             if let user = user {
                 let email = user.email
-                print("\(email) is signed in")
+                print("\(email ?? "Nobody ") is signed in")
             } else {
                 print("No user signed in")
             }
             try Auth.auth().signOut()
-            print("\(email) signed out")
+            print("signed out")
         }
         catch let error as NSError {
             print(error.localizedDescription)
@@ -79,16 +84,18 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     }
     
     override func viewDidLoad() {
-        print(user_id)
-        
-        name.text = full_name
-        email.text = user_email
-        
-        getData()
+        let userID = Auth.auth().currentUser?.uid
+        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { snapshot in
+          // Get user value
+            let value = snapshot.value as? NSDictionary
+            let firstname = value?["first_name"] as? String ?? ""
+            let lastname = value?["last_name"] as? String ?? ""
+            let email = value?["email"] as? String ?? ""
+            print("\(firstname), \(lastname), \(email)")
+            self.name.text = "\(firstname) \(lastname)"
+            self.email.text = "\(email)"
+        }) { error in
+          print(error.localizedDescription)
+        }
     }
-    
-    func getData() {
-
-    }
-    
 }
