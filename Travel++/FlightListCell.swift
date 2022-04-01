@@ -11,4 +11,5 @@ class FlightListCell: UITableViewCell {
     @IBOutlet weak var flightID: UILabel!
     @IBOutlet weak var depart: UILabel!
     @IBOutlet weak var arrive: UILabel!
+    @IBOutlet weak var status: UILabel!
 }

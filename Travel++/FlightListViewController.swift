@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 
-var flightList = [Flight](repeating: Flight(airline: "", date: "", dest: "", flightID: "", flightNo: "", origin: ""/*, status: "", delay: 0*/), count: 1)
+var flightList = [Flight](repeating: Flight(airline: "", date: "", dest: "", flightID: "", flightNo: "", origin: "", status: "", delay: 0), count: 1)
 
 class FlightListViewController: UITableViewController {
     
@@ -20,7 +20,7 @@ class FlightListViewController: UITableViewController {
     
     func fetchFlights(flightAirline: String, flightId: String, flightOrigin: String, result: @escaping (_ flight: Flight?) -> Void) {
         var newFlight = Flight(airline: "", date: "", dest: "", flightID: "",
-                              flightNo: "", origin: ""/*, status: "", delay: 0*/)
+                              flightNo: "", origin: "", status: "", delay: 0)
         var urlStr = "https://aeroapi.flightaware.com/aeroapi/flights/search/advanced?query=%7Bident+%7B" + flightAirline + flightId + "%7D%7D+%7Borig_or_dest+%7BK" + flightOrigin + "%7D%7D"
         let headers : HTTPHeaders = ["Accept":"application/json; charset=UTF-8",
                                          "x-apikey":"HjhlXTf3o0G0V9tOnA5hU385xU0BKGb5"]
@@ -47,6 +47,8 @@ class FlightListViewController: UITableViewController {
                                 newFlight.flightNo = flightAirline+flightId
                                 newFlight.airline = flightAirline
                                 newFlight.date = json["flights"][0]["scheduled_out"].stringValue.replacingOccurrences(of: "T", with: " ").replacingOccurrences(of: "Z", with: "")
+                                newFlight.status = json["flights"][0]["status"].stringValue
+                                newFlight.delay = Int(json["flights"][0]["arrival_delay"].stringValue) ?? 0
                                 result(newFlight)
                             } catch _ as NSError {
                                 result(nil)
@@ -125,8 +127,16 @@ class FlightListViewController: UITableViewController {
                 if let orgDB = flightInfoArray["origin_id"] {
                     orgVar = orgDB
                 }
+                var statusVar = ""
+                if let statusDB = flightInfoArray["status"] {
+                    statusVar = statusDB
+                }
+                var delayVar = 0
+                if let delayDB = flightInfoArray["delay"] {
+                    delayVar = Int(delayDB) ?? 0
+                }
                 var count = 0
-                flightList[count] = Flight(airline: airlineVar, date: dateVar, dest: destVar, flightID: JSON(rawValue: flightidVar) ?? "", flightNo: flightnoVar, origin: orgVar)
+                flightList[count] = Flight(airline: airlineVar, date: dateVar, dest: destVar, flightID: JSON(rawValue: flightidVar) ?? "", flightNo: flightnoVar, origin: orgVar, status: statusVar, delay: delayVar)
                 
                 print(flightList[count])
                 group.leave()
@@ -165,6 +175,7 @@ extension FlightListViewController {
         cell.flightID.text = flights.flightNo
         cell.depart.text = flights.origin
         cell.arrive.text = flights.dest
+        cell.status.text = flights.status
         return cell
     }
     

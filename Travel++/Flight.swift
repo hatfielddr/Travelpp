@@ -17,7 +17,7 @@ struct Flight {
     var flightID: JSON
     var flightNo: String
     var origin: String
-    //var status: String
-    //var delay: Int
+    var status: String
+    var delay: Int
     
 }
