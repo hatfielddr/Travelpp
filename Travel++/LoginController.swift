@@ -17,6 +17,8 @@ var lname = ""
 var full_name = ""
 var user_email = ""
 
+var guest: Bool = false
+
 class LoginController: UIViewController {
     typealias DoneButtonAction = () -> Void
     typealias SignUpButtonAction = () -> Void
@@ -31,6 +33,7 @@ class LoginController: UIViewController {
     //@IBOutlet var password: UITextInputPasswordRules!
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var signUpButton: UIButton!
+    @IBOutlet var guestButton: UIButton!
     
     @IBOutlet weak var errMsg: UILabel!
     
@@ -79,6 +82,16 @@ class LoginController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainController = storyboard.instantiateViewController(withIdentifier: "SignUpController")
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
+    }
+    
+    @IBAction func guestButtonTriggered(_ sender: UIButton) {
+        // Continue to main page, but set global flag for
+        // removing account requiring UI elements
+        guest = true
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        (UIApplication.shared.connectedScenes.first?.delegate as?
+         SceneDelegate)?.changeRootViewController(mainController)
     }
     
     override func viewWillAppear(_ animated: Bool) {

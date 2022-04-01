@@ -24,6 +24,9 @@ class SignUpController: UIViewController {
     @IBAction func signUpButtonTriggered(_ sender: UIButton) {
         // register new user in database
         Auth.auth().createUser(withEmail: username.text!, password: password.text!) { authResult, error in
+            if error != nil {
+                print(error?.localizedDescription)
+            }
             self.completeSignUp()
         }
     }
@@ -38,6 +41,7 @@ class SignUpController: UIViewController {
                 let email = user.email
                 let uid = user.uid
                 database.child("users/\(uid)").setValue(["email": email])
+                guest = false
             }
             
             // Get our main storyboard

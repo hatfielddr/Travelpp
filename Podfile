@@ -12,6 +12,8 @@ target 'Travel++' do
   pod 'CDYelpFusionKit', '3.0.1'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Alamofire', '5.4.3'
+  pod 'SwiftyJSON', '4.0'
   pod 'FirebaseUI'
   pod 'FirebaseUI/Auth'
   pod 'Charts'

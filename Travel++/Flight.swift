@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct Flight {
     
@@ -13,8 +14,10 @@ struct Flight {
     var airline: String
     var date: String
     var dest: String
-    var flightID: String
+    var flightID: JSON
     var flightNo: String
     var origin: String
+    var status: String
+    var delay: String
     
 }

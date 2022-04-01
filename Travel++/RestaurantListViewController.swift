@@ -33,6 +33,7 @@ class RestaurantListViewController: UITableViewController {
         // Here we replace the default values
         getData()
         locationLabel.text = location
+        viewFavButton.isHidden = guest
     }
     
     func getData() {
@@ -96,6 +97,9 @@ extension RestaurantListViewController {
         let image = restaurant.isFavorite ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
         cell.nameLabel.text = restaurant.name
         cell.ratingLabel.text = String(format: "%.1f", restaurant.rating)
+        
+        cell.faveButton.isHidden = guest
+        
         cell.faveButton.setBackgroundImage(image, for: .normal)
         cell.faveButtonAction = {
             restaurantList[indexPath.row].isFavorite.toggle()

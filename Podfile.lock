@@ -604,9 +604,11 @@ PODS:
   - SDWebImage (5.12.3):
     - SDWebImage/Core (= 5.12.3)
   - SDWebImage/Core (5.12.3)
+  - SwiftyJSON (4.0.0)
   - TinyConstraints (4.0.2)
 
 DEPENDENCIES:
+  - Alamofire (= 5.4.3)
   - CDYelpFusionKit (= 3.0.1)
   - Charts
   - Firebase/Core
@@ -616,6 +618,7 @@ DEPENDENCIES:
   - Google-Maps-iOS-Utils (= 4.1.0)
   - GoogleMaps (= 6.0.0)
   - GooglePlaces (= 6.0.0)
+  - SwiftyJSON (= 4.0)
   - TinyConstraints
 
 SPEC REPOS:
@@ -665,6 +668,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SDWebImage
+    - SwiftyJSON
     - TinyConstraints
 
 SPEC CHECKSUMS:
@@ -713,8 +717,9 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: 1b71778ba39095e23952c71fa1393908e08e07ea
+PODFILE CHECKSUM: be71a0fd27d059e32bcbb8e4e486a07e532e231a
 
 COCOAPODS: 1.11.2
