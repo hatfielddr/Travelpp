@@ -41,6 +41,7 @@ class SignUpController: UIViewController {
                 let email = user.email
                 let uid = user.uid
                 database.child("users/\(uid)").setValue(["email": email])
+                guest = false
             }
             
             // Get our main storyboard

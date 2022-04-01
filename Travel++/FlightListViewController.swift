@@ -52,16 +52,18 @@ class FlightListViewController: UITableViewController {
                                 newFlight.delay = json["flights"][0]["arrival_delay"].stringValue
                                 result(newFlight)
                                 
-                                guard let key = ref.child("users/\(Auth.auth().currentUser!.uid)/flights").childByAutoId().key else { return }
-                                let tempRef = ref.child("users/\(Auth.auth().currentUser!.uid)/flights/\(key)")
-                                tempRef.updateChildValues(["airline": newFlight.airline as Any])
-                                tempRef.updateChildValues(["flightNo": newFlight.flightNo as Any])
-                                tempRef.updateChildValues(["flightID": newFlight.flightID.stringValue as Any])
-                                tempRef.updateChildValues(["delay": newFlight.delay as Any])
-                                tempRef.updateChildValues(["origin": newFlight.origin as Any])
-                                tempRef.updateChildValues(["dest": newFlight.dest as Any])
-                                tempRef.updateChildValues(["date": newFlight.date as Any])
-                                tempRef.updateChildValues(["status": newFlight.status as Any])
+                                if (!guest) {
+                                    guard let key = ref.child("users/\(Auth.auth().currentUser!.uid)/flights").childByAutoId().key else { return }
+                                    let tempRef = ref.child("users/\(Auth.auth().currentUser!.uid)/flights/\(key)")
+                                    tempRef.updateChildValues(["airline": newFlight.airline as Any])
+                                    tempRef.updateChildValues(["flightNo": newFlight.flightNo as Any])
+                                    tempRef.updateChildValues(["flightID": newFlight.flightID.stringValue as Any])
+                                    tempRef.updateChildValues(["delay": newFlight.delay as Any])
+                                    tempRef.updateChildValues(["origin": newFlight.origin as Any])
+                                    tempRef.updateChildValues(["dest": newFlight.dest as Any])
+                                    tempRef.updateChildValues(["date": newFlight.date as Any])
+                                    tempRef.updateChildValues(["status": newFlight.status as Any])
+                                    }
                             } catch _ as NSError {
                                 result(nil)
                             }
@@ -102,8 +104,6 @@ class FlightListViewController: UITableViewController {
         self.refreshControl?.endRefreshing()
     }
     
-    let nameRef = ref.child("users/\(Auth.auth().currentUser!.uid)/flights")
-    
     override func viewDidLoad() {
         // Here we replace the default values
         self.refreshControl?.addTarget(self, action: #selector(refresher), for: UIControl.Event.valueChanged)
@@ -111,67 +111,71 @@ class FlightListViewController: UITableViewController {
     }
     
     func getData() {
-        let group = DispatchGroup()
-        nameRef.observe(.value, with: { snapshot in
-            var count = 0
-            for child in snapshot.children {
-                group.enter()
-                let snap = child as! DataSnapshot
-                let flightDict = snap.value as! [String: Any]
-                print(flightDict)
+        if (!guest) {
+            let group = DispatchGroup()
+            if (Auth.auth().currentUser == nil) {return}
+            let nameRef = ref.child("users/\(Auth.auth().currentUser!.uid)/flights")
+            nameRef.observe(.value, with: { snapshot in
+                var count = 0
+                for child in snapshot.children {
+                    group.enter()
+                    let snap = child as! DataSnapshot
+                    let flightDict = snap.value as! [String: Any]
+                    print(flightDict)
+                    
+                    var airlineVar = ""
+                    if let airlineDB = flightDict["airline"] {
+                        airlineVar = airlineDB as! String
+                    }
+                    var dateVar = ""
+                    if let dateDB = flightDict["date"] {
+                        dateVar = dateDB as! String
+                    }
+                    var destVar = ""
+                    if let destDB = flightDict["dest"] {
+                        destVar = destDB as! String
+                    }
+                    var flightidVar = ""
+                    if let flightidDB = flightDict["flightID"] {
+                        flightidVar = flightidDB as! String
+                    }
+                    var flightnoVar = ""
+                    if let flightnoDB = flightDict["flightNo"] {
+                        flightnoVar = flightnoDB as! String
+                    }
+                    var orgVar = ""
+                    if let orgDB = flightDict["origin"] {
+                        orgVar = orgDB as! String
+                    }
+                    var statusVar = ""
+                    if let statusDB = flightDict["status"] {
+                        statusVar = statusDB as! String
+                    }
+                    var delayVar = ""
+                    if let delayDB = flightDict["delay"] {
+                        delayVar = delayDB as! String
+                    }
+                    while (count >= flightList.count) {
+                        flightList.append(Flight(airline: "", date: "", dest: "", flightID: "", flightNo: "", origin: "", status: "", delay: ""))
+                    }
+                    flightList[count] = Flight(airline: airlineVar, date: dateVar, dest: destVar, flightID: JSON(rawValue: flightidVar) ?? "", flightNo: flightnoVar, origin: orgVar, status: statusVar, delay: delayVar)
+                    
+                    print(flightList[count])
+                    count+=1
+                    self.tableView.reloadData()
+                    group.leave()
+                }
                 
-                var airlineVar = ""
-                if let airlineDB = flightDict["airline"] {
-                    airlineVar = airlineDB as! String
-                }
-                var dateVar = ""
-                if let dateDB = flightDict["date"] {
-                    dateVar = dateDB as! String
-                }
-                var destVar = ""
-                if let destDB = flightDict["dest"] {
-                    destVar = destDB as! String
-                }
-                var flightidVar = ""
-                if let flightidDB = flightDict["flightID"] {
-                    flightidVar = flightidDB as! String
-                }
-                var flightnoVar = ""
-                if let flightnoDB = flightDict["flightNo"] {
-                    flightnoVar = flightnoDB as! String
-                }
-                var orgVar = ""
-                if let orgDB = flightDict["origin"] {
-                    orgVar = orgDB as! String
-                }
-                var statusVar = ""
-                if let statusDB = flightDict["status"] {
-                    statusVar = statusDB as! String
-                }
-                var delayVar = ""
-                if let delayDB = flightDict["delay"] {
-                    delayVar = delayDB as! String
-                }
-                while (count >= flightList.count) {
-                    flightList.append(Flight(airline: "", date: "", dest: "", flightID: "", flightNo: "", origin: "", status: "", delay: ""))
-                }
-                flightList[count] = Flight(airline: airlineVar, date: dateVar, dest: destVar, flightID: JSON(rawValue: flightidVar) ?? "", flightNo: flightnoVar, origin: orgVar, status: statusVar, delay: delayVar)
-                
-                print(flightList[count])
-                count+=1
-                self.tableView.reloadData()
-                group.leave()
-            }
+            }, withCancel: nil)
             
-        }, withCancel: nil)
-        
-        
-        
-        group.notify(queue: .main, execute: {
-            print("Going to Refresh")
-            self.refreshControl?.endRefreshing()
-            self.tableView.reloadData()
-        })
+            
+            
+            group.notify(queue: .main, execute: {
+                print("Going to Refresh")
+                self.refreshControl?.endRefreshing()
+                self.tableView.reloadData()
+            })
+        }
         tableView.reloadData()
     }
 }

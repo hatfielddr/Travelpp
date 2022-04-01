@@ -29,6 +29,10 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var email: UILabel!
     @IBOutlet weak var changePass: UIButton!
+    @IBOutlet weak var myProfile: UILabel!
+    @IBOutlet var name2: UILabel!
+    @IBOutlet var email2: UILabel!
+    @IBOutlet var createAccountButton: UIButton!
     
     @IBAction func changePassTriggered(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ChangePasswordSegue", sender: self)
@@ -44,6 +48,12 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     
     @IBAction func changeEmailTriggered(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ChangeEmailSegue", sender: self)
+    }
+    
+    @IBAction func createAccount(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainController = storyboard.instantiateViewController(withIdentifier: "SignUpController")
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
     }
     
     func updateEmail(newEmail: String) {
@@ -84,6 +94,31 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     }
     
     override func viewDidLoad() {
+        if (guest) {
+            name.isHidden = true
+            email.isHidden = true
+            signOut.isHidden = true
+            changeName.isHidden = true
+            changePass.isHidden = true
+            changeEmail.isHidden = true
+            myProfile.isHidden = true
+            name2.isHidden = true
+            email2.isHidden = true
+            createAccountButton.isHidden = false
+        }
+        else {
+            name.isHidden = false
+            email.isHidden = false
+            signOut.isHidden = false
+            changeName.isHidden = false
+            changePass.isHidden = false
+            changeEmail.isHidden = false
+            myProfile.isHidden = false
+            name2.isHidden = false
+            email2.isHidden = false
+            createAccountButton.isHidden = true
+        }
+        if (Auth.auth().currentUser == nil) {return}
         let userID = Auth.auth().currentUser?.uid
         ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { snapshot in
           // Get user value
