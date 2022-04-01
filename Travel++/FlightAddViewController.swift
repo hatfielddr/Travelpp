@@ -9,19 +9,19 @@ import UIKit
 
 class FlightAddViewController: UIViewController {
     
-    @IBOutlet var originAdd: UITextField!
-    @IBOutlet var destAdd: UITextField!
-    @IBOutlet var dateAdd: UITextField!
+    @IBOutlet var flightAirline: UITextField!
+    @IBOutlet var flightId: UITextField!
+    @IBOutlet var flightOrigin: UITextField!
     
-    var originAddString: String = ""
-    var destAddString: String = ""
-    var dateAddString: String = ""
+    var flightAirlineString: String = ""
+    var flightIdString: String = ""
+    var flightOriginString: String = ""
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "doneSegue" {
-            originAddString = originAdd.text!
-            destAddString = destAdd.text!
-            dateAddString = dateAdd.text!
+            flightAirlineString = flightAirline.text!
+            flightIdString = flightId.text!
+            flightOriginString = flightOrigin.text!
         }
     }
 }
