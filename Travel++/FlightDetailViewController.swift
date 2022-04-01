@@ -34,8 +34,13 @@ class FlightDetailViewController: UIViewController {
         destination.text = flight?.dest
         dateChange.text = flight?.date
         status.text = flight?.status
-        let d = (flight?.delay ?? 0) / 60
-        delay.text = "Delay: " + String(d) + " minutes"
+        let d = Int(flight!.delay)! / 60
+        if d < 0 {
+            delay.text = "Early: " + String(-d) + " minutes"
+        }
+        else {
+            delay.text = "Delay: " + String(d) + " minutes"
+        }
     }
     
     @IBAction func editButtonTriggered(_ sender: UIButton) {
