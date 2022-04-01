@@ -11,7 +11,6 @@ import FirebaseAuthUI
 
 class ChangePasswordViewController: UIViewController {
     
-    @IBOutlet weak var old_pass: UITextField!
     @IBOutlet weak var new_pass: UITextField!
     
     @IBOutlet weak var submit: UIButton!
@@ -27,8 +26,12 @@ class ChangePasswordViewController: UIViewController {
             if let error = error {
                 print("***update password error***")
                 print(error)
+                self.new_pass.text = ""
+                self.failMsg.isHidden = false
                 print("***end update password error***")
             } else {
+                self.new_pass.text = ""
+                self.successMsg.isHidden = false
                 print("changed password successfully")
             }
         }
