@@ -17,8 +17,6 @@ var flightList = [Flight](repeating: Flight(airline: "", date: "", dest: "", fli
 
 class FlightListViewController: UITableViewController {
     
-    
-    
     func fetchFlights(flightAirline: String, flightId: String, flightOrigin: String, result: @escaping (_ flight: Flight?) -> Void) {
         var newFlight = Flight(airline: "", date: "", dest: "", flightID: "",
                               flightNo: "", origin: "", status: "", delay: "")
@@ -85,7 +83,6 @@ class FlightListViewController: UITableViewController {
         fetchFlights(flightAirline: flightAddVC.flightAirlineString, flightId: flightAddVC.flightIdString, flightOrigin: flightAddVC.flightOriginString){(f: Flight?) -> Void in
             flightList.append(f!)
             
-            
             self.tableView.reloadData()
         }
     }
@@ -102,6 +99,8 @@ class FlightListViewController: UITableViewController {
         
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
+        
+        getData()
     }
     
     override func viewDidLoad() {
@@ -110,7 +109,14 @@ class FlightListViewController: UITableViewController {
         getData()
     }
     
+    func viewDidAppear() {
+        self.refreshControl?.addTarget(self, action: #selector(refresher), for: UIControl.Event.valueChanged)
+        getData()
+    }
+    
     func getData() {
+        print("called getData")
+        flightList.removeAll()
         if (!guest) {
             let group = DispatchGroup()
             if (Auth.auth().currentUser == nil) {return}
@@ -167,8 +173,6 @@ class FlightListViewController: UITableViewController {
                 }
                 
             }, withCancel: nil)
-            
-            
             
             group.notify(queue: .main, execute: {
                 print("Going to Refresh")

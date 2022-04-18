@@ -23,6 +23,7 @@ class FlightDetailViewController: UIViewController {
     @IBOutlet var dateChange: UILabel!
     @IBOutlet var status: UILabel!
     @IBOutlet var delay: UILabel!
+    var flightNo = ""
     
     var flight: Flight?
     @IBOutlet var editButton: UIButton!
@@ -34,6 +35,8 @@ class FlightDetailViewController: UIViewController {
         destination.text = flight?.dest
         dateChange.text = flight?.date
         status.text = flight?.status
+        flightNo = flight?.flightNo ?? "Unknown"
+        print("FlightNo = \(flightNo)")
         let d = Int(flight!.delay)! / 60
         if d < 0 {
             delay.text = "Early: " + String(-d) + " minutes"
@@ -50,9 +53,6 @@ class FlightDetailViewController: UIViewController {
     @IBAction func deleteButtonTriggered(_ sender: UIButton) {
         print("clicked delete")
         
-        // get flight ID
-        let flight_id = "UA4417"
-        
         // get current user
         let user = Auth.auth().currentUser
         if let user = user {
@@ -60,7 +60,24 @@ class FlightDetailViewController: UIViewController {
             print("User signed in")
             
             // remove trip from database
-            database.child("users/\(uid)/flights/\(flight_id)").removeValue()
+            //database.child("users/\(uid)/flights/\(flightNo)").removeValue()
+            
+            let flightsRef = self.database.child("users/\(uid)/flights")
+            let query = flightsRef.queryOrdered(byChild: "flightNo").queryEqual(toValue: flightNo)
+            query.observeSingleEvent(of: .value, with: {snapshot in
+                if !snapshot.exists() {
+                    print("flight not found")
+                } else {
+                    print("flight found")
+                    for child in snapshot.children {
+                        let snap = child as! DataSnapshot
+                        let dict = snap.value as! [String: Any]
+                        let flightKey = snap.key
+                        
+                        self.database.child("users/\(uid)/flights/\(flightKey)").removeValue()
+                    }
+                }
+            })
             
         } else {
             print("No user signed in")
