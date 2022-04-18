@@ -19,6 +19,7 @@ class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     private let tableView: UITableView = {
         let table = UITableView()
+        //table.tableHeaderView = .init(frame: .init(x: 0, y: 0, width: 0, height: CGFloat.leastNonzeroMagnitude))
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         return table
