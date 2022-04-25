@@ -34,8 +34,6 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         super.viewDidLoad()
         title = "Maps"
         
-        //automaticallyAdjustsScrollViewInsets = false
-        
         //set up search bar
         searchVC.searchBar.backgroundColor = .black
         searchVC.searchResultsUpdater = self
@@ -57,7 +55,6 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
-        //currentLocationButton.currentImage
         
         self.view = mapView
         self.view.addSubview(map)
