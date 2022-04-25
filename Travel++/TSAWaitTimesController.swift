@@ -8,11 +8,23 @@
 import UIKit
 import Charts
 import TinyConstraints
+import GooglePlaces
 
-class TSAWaitTimesController: UIViewController, ChartViewDelegate {
+//global variables
+var searchController: UISearchController?
+
+class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchControllerDelegate, GMSAutocompleteResultsViewControllerDelegate  {
+    
+    //IBOutlets
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var airportLabel: UILabel!
+    @IBOutlet weak var currentWaitTime: UILabel!
     
+    //local variables
+    var resultsViewController: GMSAutocompleteResultsViewController?
+    var resultView: UITextView?
     
+    //create structures to store TSA wait time data
     struct Contents: Codable {
         let day: String
         let hour: String
@@ -24,8 +36,10 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate {
         let data: [Contents]
     }
     
+    //initialize TSA wait time chart data
     var values: [ChartDataEntry] = []
 
+    //create chart
     lazy var lineChartView: LineChartView = {
         //make chart
         let chartView = LineChartView()
@@ -54,8 +68,6 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate {
         xAxis.labelTextColor = .white
         xAxis.axisLineColor = .systemTeal
         
-        //chartView.animate(xAxisDuration: 2)
-        
         return chartView
     }()
     
@@ -68,6 +80,8 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate {
         dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
 
         dateLabel.text = dateFormatter.string(from: date)
+        airportLabel.text = "IND"
+        currentWaitTime.text = "-"
         
         //make chart background
         view.addSubview(lineChartView)
@@ -75,39 +89,36 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate {
         lineChartView.width(to: view)
         lineChartView.heightToWidth(of: view)
         
-        //get day of week
-        let index = Calendar.current.component(.weekday, from: Date()) // this returns an Int
-        let day = Calendar.current.weekdaySymbols[index - 1] // subtract 1 since the index starts at 1
+        //set up search
+        resultsViewController = GMSAutocompleteResultsViewController()
+        resultsViewController?.delegate = self
+
+        searchController = UISearchController(searchResultsController: resultsViewController)
+        searchController?.searchResultsUpdater = resultsViewController as! UISearchResultsUpdating
+
+        // Put the search bar in the navigation bar.
+        searchController?.searchBar.sizeToFit()
+        navigationItem.titleView = searchController?.searchBar
+
+        // When UISearchController presents the results view, present it in
+        // this view controller, not one further up the chain.
+        definesPresentationContext = true
+
+        // Prevent the navigation bar from being hidden when searching.
+        searchController?.hidesNavigationBarDuringPresentation = false
         
-        //get json data
-        let urlstring = "https://www.tsa.gov/api/checkpoint_waittime/v1/IND/" + day + ".json"
-        let url = URL(string: urlstring)!
-        let task = URLSession.shared.dataTask(with: url) { [self](data, response, error) in
-            guard let json = data else { return }
-            print(String(data: json, encoding: .utf8)!)
-            
-            let decoder = JSONDecoder()
-            let times = try! decoder.decode(Times.self, from: json)
-            
-            //add data to set entry array
-            for i in 0...23 {
-                let xval = Double(times.data[i].hour)
-                let yval = Double(times.data[i].max_standard_wait)
-                values.append(ChartDataEntry(x: xval!, y: yval!))
-                //print("x: " + times.data[i].hour + ", y: " + times.data[i].max_standard_wait)
-            }
-            setData()
-        }
-        
-        task.resume()
+        //get initial json data
+        pullWaitTimes(name: "IND")
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         print(entry)
     }
     
+    //add wait time data to chart
     func setData() {
         print("IN SET DATA")
+        
         let set1 = LineChartDataSet(entries: values, label: "TSA Wait Times")
         set1.mode = .cubicBezier
         set1.drawCirclesEnabled = false
@@ -125,5 +136,63 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate {
         lineChartView.data = data
     }
     
+    func pullWaitTimes(name: String) {
+        print("IN PULL WAIT TIMES")
+        
+        //set up page labels
+        let index = Calendar.current.component(.weekday, from: Date()) // this returns an Int
+        let day = Calendar.current.weekdaySymbols[index - 1] // subtract 1 since the index starts at 1
+        let airportCode = name
+        airportLabel.text = airportCode
+        
+        //get time formatted in military time
+        let components = Calendar.current.dateComponents([.hour], from: Date())
+        let hour = components.hour ?? 0
+        //print(hour)
+        
+        //set up query string
+        let urlstring = "https://www.tsa.gov/api/checkpoint_waittime/v1/" + airportCode + "/" + day + ".json"
+        let url = URL(string: urlstring)!
+        
+        //pull wait times
+        let task = URLSession.shared.dataTask(with: url) { [self](data, response, error) in
+            guard let json = data else { return }
+            print(String(data: json, encoding: .utf8)!)
 
+            let decoder = JSONDecoder()
+            let times = try! decoder.decode(Times.self, from: json)
+            
+            //empty data
+            values = []
+
+            //add data to set entry array
+            for i in 0...23 {
+                let xval = Double(times.data[i].hour)
+                let yval = Double(times.data[i].max_standard_wait)
+                values.append(ChartDataEntry(x: xval!, y: yval!))
+                
+                //set currentWaitTime label to corresponding wait time
+                if (yval! == Double(hour)) {
+                    DispatchQueue.main.async {
+                        print("HERE")
+                        print(String(Int(yval!)))
+                        self.currentWaitTime.text = String(Int(yval!))
+                    }
+                }
+            }
+            //add returned data to chart
+            setData()
+        }
+        task.resume()
+    }
+    
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
+        searchController?.isActive = false
+        pullWaitTimes(name: place.name!)
+        place.types
+    }
+    
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
+    }
 }
