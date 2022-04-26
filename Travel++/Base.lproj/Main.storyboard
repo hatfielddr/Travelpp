@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -601,6 +602,18 @@
                                     <action selector="createAccount:" destination="hPw-Y3-47A" eventType="touchUpInside" id="8pq-Uz-pvM"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enable Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvm-9y-sXC">
+                                <rect key="frame" x="20" y="529" width="190" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M25-P8-r7P">
+                                <rect key="frame" x="337" y="527" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="AccentColor"/>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDz-03-dXI"/>
                         <color key="backgroundColor" red="0.34114629029999999" green="0.74872118229999995" blue="0.78828305009999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -616,6 +629,7 @@
                         <outlet property="myProfile" destination="8bv-Id-s4Z" id="J4a-J0-iot"/>
                         <outlet property="name" destination="6Nb-me-hrG" id="1iq-Pm-0xH"/>
                         <outlet property="name2" destination="82l-Pb-Kwm" id="jYP-Zg-Ukl"/>
+                        <outlet property="notifications" destination="M25-P8-r7P" id="jHA-0U-aEN"/>
                         <outlet property="signOut" destination="cqd-d7-NlT" id="Oew-nb-I5Q"/>
                         <segue destination="xSk-Jn-Gxf" kind="show" identifier="ChangePasswordSegue" id="zYv-wy-uG9"/>
                         <segue destination="j09-wF-Jn8" kind="show" identifier="ChangeNameSegue" id="oY6-4K-3dU"/>
@@ -1277,6 +1291,9 @@
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

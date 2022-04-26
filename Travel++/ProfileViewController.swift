@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     @IBOutlet var name2: UILabel!
     @IBOutlet var email2: UILabel!
     @IBOutlet var createAccountButton: UIButton!
+    @IBOutlet weak var notifications: UISwitch!
     
     @IBAction func changePassTriggered(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ChangePasswordSegue", sender: self)
