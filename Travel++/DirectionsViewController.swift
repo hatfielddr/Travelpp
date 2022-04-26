@@ -8,33 +8,96 @@
 import UIKit
 import MapKit
 
-class DirectionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPopoverControllerDelegate, UISearchBarDelegate {
-    @IBOutlet weak var toSearchBar: UISearchBar!
-    @IBOutlet weak var fromSearchBar: UISearchBar!
+class DirectionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+    
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet var directionsTable: UITableView!
+    @IBOutlet weak var toSearchView: UIView!
+    @IBOutlet weak var fromSearchView: UIView!
+    
+    var toLatitude = Double()
+    var fromLatitude = Double()
+    var toLongitude = Double()
+    var fromLongitude = Double()
     
     var stepsArray = [String]()
     var distancesArray = [MKRoute.Step]()
     
-
+    var toSearch = false
+    var fromSearch = false
+    
+    let searchVC1 = UISearchController(searchResultsController: DirectionsResultsViewController())
+    let searchVC2 = UISearchController(searchResultsController: DirectionsResultsViewController())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        toSearchBar.delegate = self
-        fromSearchBar.delegate = self
+        title = "Directions"
         
-        toSearchBar.placeholder = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude)).name
-        fromSearchBar.placeholder = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude)).name
+        toLatitude = latitude
+        fromLatitude = currentLatitude
+        toLongitude = longitude
+        fromLongitude = currentLongitude
         
-        pullDirections()
+        searchVC1.searchResultsUpdater = self
+        searchVC1.searchBar.delegate = self
+        searchVC1.searchBar.placeholder = selectedName
+        searchVC1.hidesNavigationBarDuringPresentation = false
+        searchVC1.isActive = true
+        
+        searchVC2.searchResultsUpdater = self
+        searchVC2.searchBar.delegate = self
+        searchVC2.searchBar.placeholder = "Current Location"
+        searchVC2.hidesNavigationBarDuringPresentation = false
+        searchVC2.isActive = true
+        
+        toSearchView.addSubview(searchVC1.searchBar)
+        fromSearchView.addSubview(searchVC2.searchBar)
+
+        pullDirections(fromLatitude: fromLatitude, fromLongitude: fromLongitude, toLatitude: toLatitude, toLongitude: toLongitude)
         
         self.directionsTable.dataSource = self;
         self.directionsTable.delegate = self;
     }
     
+    //need to figure out issue with closing search bar
+    //need to figure out placeholder with using MapViewController first
+    override func viewDidDisappear(_ animated: Bool) {
+        print("in viewDidDisappear")
+        
+        toSearch = false
+        searchVC1.searchBar.resignFirstResponder()
+        searchVC1.dismiss(animated: true, completion: nil)
+        
+        fromSearch = false
+        searchVC2.searchBar.resignFirstResponder()
+        searchVC2.dismiss(animated: true, completion: nil)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("in searchBarCancelButtonClicked")
+        
+        if (searchBar == searchVC1) {
+            print("canceled toSearch")
+            toSearch = false
+            searchVC1.searchBar.resignFirstResponder()
+            searchVC1.dismiss(animated: true, completion: nil)
+        }
+        
+        if (searchBar == searchVC2) {
+            print("canceled fromSearch")
+            fromSearch = false
+            searchVC2.searchBar.resignFirstResponder()
+            searchVC2.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     //convert from meters to miles
     func getMiles(meters: Double) -> Double {
          return meters * 0.000621371192
+    }
+    
+    @IBAction func searchDirections(_ sender: Any) {
+        pullDirections(fromLatitude: fromLatitude, fromLongitude: fromLongitude, toLatitude: toLatitude, toLongitude: toLongitude)
     }
     
     //clear directions results
@@ -45,10 +108,10 @@ class DirectionsViewController: UIViewController, UITableViewDataSource, UITable
         }
     
     //pull directions from apple maps for given source/destination
-    func pullDirections() {
+    func pullDirections(fromLatitude: Double, fromLongitude: Double, toLatitude: Double, toLongitude: Double) {
         //set start and end points from coordinates
-        let p1 = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: currentLatitude, longitude: currentLongitude))
-        let p2 = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        let p1 = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: fromLatitude, longitude: fromLongitude))
+        let p2 = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: toLatitude, longitude: toLongitude))
 
         //create request to pull directions from p1 to p2
         let request = MKDirections.Request()
@@ -90,5 +153,64 @@ class DirectionsViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Use length of array a stable row count.
         return stepsArray.count
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        print("in updateSearchResults")
+        
+        if (searchController == searchVC1) {
+            toSearch = true
+        }
+        
+        if (searchController == searchVC2) {
+            fromSearch = true
+        }
+        
+        guard let query = searchController.searchBar.text,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty,
+              let resultsVC = searchController.searchResultsController as? DirectionsResultsViewController else {
+            return
+        }
+        
+        resultsVC.delegate = self
+        
+        GooglePlacesManager.shared.findPlaces(query: query) { result in
+            switch result {
+            case .success(let places):
+                DispatchQueue.main.async {
+                    resultsVC.update(with: places)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
+
+extension DirectionsViewController: DirectionsResultsViewControllerDelegate {
+    func didTapPlace(with coordinates: CLLocationCoordinate2D) {
+        print("in didTapPlace")
+        //put keyboard down
+        if (toSearch == true) {
+            print("toSearch == true")
+            toLatitude = coordinates.latitude
+            latitude = toLatitude
+            toLongitude = coordinates.longitude
+            longitude = toLongitude
+            searchVC1.searchBar.resignFirstResponder()
+            searchVC1.dismiss(animated: true, completion: nil)
+            searchVC1.searchBar.text = selectedName
+            toSearch = false
+        }
+        
+        else if (fromSearch == true) {
+            print("fromSearch == true")
+            fromLatitude = coordinates.latitude
+            fromLongitude = coordinates.longitude
+            searchVC2.searchBar.resignFirstResponder()
+            searchVC2.dismiss(animated: true, completion: nil)
+            searchVC2.searchBar.text = selectedName
+            fromSearch = false
+        }
     }
 }

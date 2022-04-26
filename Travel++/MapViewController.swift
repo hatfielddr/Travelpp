@@ -11,28 +11,35 @@ import MapKit
 import GooglePlaces
 import GoogleMaps
 
-var currentLatitude = 0.0
-var currentLongitude = 0.0
-var latitude = 39.8283
-var longitude = -98.5795
+var currentLatitude = Double()
+var currentLongitude = Double()
 
 
-class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate {
-    @IBOutlet var mapView: UIView!
+var latitude = Double()
+var longitude = Double()
+
+class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationManagerDelegate {
+
     @IBOutlet weak var zoomIn: UIButton!
     @IBOutlet weak var zoomOut: UIButton!
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var getDirectionsButton: UIButton!
+    @IBOutlet weak var mapView: MKMapView!
     
     let searchVC = UISearchController(searchResultsController: ResultsViewController())
     let locationManager = CLLocationManager()
 
     var zoom = Float(4.0)
-    
+    var center = CLLocationCoordinate2D()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Maps"
+        
+        selectedName = "Center of United States (0.0, 0.0)"
+        
+        latitude = 39.8283
+        longitude = -98.5795
         
         //set up search bar
         searchVC.searchBar.backgroundColor = .black
@@ -59,6 +66,13 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         self.view = mapView
         self.view.addSubview(map)
         reload()
+    }
+    
+    //fix this: make sure the center of the map is constantly being updated with movements
+    //which then set the latitude and longitude
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        center = mapView.centerCoordinate
+        print("Latitude: \(center.latitude), Longitude: \(center.longitude)")
     }
     
     func reload() {

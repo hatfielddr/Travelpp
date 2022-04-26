@@ -924,22 +924,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="MTf-Xh-fQP">
-                                <rect key="frame" x="61" y="28" width="306" height="396"/>
+                                <rect key="frame" x="61" y="28" width="320" height="396"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vU-sW-1Gf" customClass="LoginContro">
-                                <rect key="frame" x="68" y="361" width="278" height="20.5"/>
+                                <rect key="frame" x="68" y="361" width="292" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9c-7s-VZm">
-                                <rect key="frame" x="68" y="449" width="278" height="20.5"/>
+                                <rect key="frame" x="68" y="449" width="292" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jY-m5-ImV">
-                                <rect key="frame" x="169.5" y="557" width="75" height="42"/>
+                                <rect key="frame" x="176.5" y="557" width="75" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7jY-m5-ImV" secondAttribute="height" multiplier="79:44" id="BVJ-nH-zdC"/>
                                 </constraints>
@@ -1034,16 +1034,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="176"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ou5-xK-Ekr">
-                                    <rect key="frame" x="80" y="22" width="326" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
-                                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AgO-lg-NnJ">
-                                    <rect key="frame" x="80" y="72" width="326" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77J-cL-jRi">
                                     <rect key="frame" x="20" y="34" width="23" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1063,7 +1053,20 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="gray" title="Search"/>
+                                    <connections>
+                                        <action selector="searchDirections:" destination="GpR-OO-HOG" eventType="primaryActionTriggered" id="93u-51-PnA"/>
+                                    </connections>
                                 </button>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kUg-SH-Qm8">
+                                    <rect key="frame" x="75" y="71" width="264" height="47"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="daD-ZG-QEF">
+                                    <rect key="frame" x="75" y="15" width="264" height="58"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -1076,7 +1079,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gcp-1m-TEp">
-                                            <rect key="frame" x="20" y="11" width="225" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="231" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -1108,9 +1111,9 @@
                     <navigationItem key="navigationItem" id="QpR-xZ-lfX"/>
                     <connections>
                         <outlet property="directionsTable" destination="yce-RQ-0k0" id="esw-XH-NyV"/>
-                        <outlet property="fromSearchBar" destination="AgO-lg-NnJ" id="Lc1-b2-E6r"/>
+                        <outlet property="fromSearchView" destination="kUg-SH-Qm8" id="cFy-eQ-yoi"/>
                         <outlet property="searchButton" destination="4Mp-iQ-AYR" id="IxA-Of-Q9b"/>
-                        <outlet property="toSearchBar" destination="ou5-xK-Ekr" id="ll1-h3-Mqm"/>
+                        <outlet property="toSearchView" destination="daD-ZG-QEF" id="b7W-Mg-cg9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iBV-hP-JQG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1164,6 +1167,10 @@
                                     <action selector="ZoomIn:" destination="LIP-ON-7G4" eventType="primaryActionTriggered" id="6f5-KO-rYW"/>
                                 </connections>
                             </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HaY-Dz-7JD">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hqO-dw-9gV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1172,14 +1179,14 @@
                     <connections>
                         <outlet property="currentLocationButton" destination="4xR-dF-EcC" id="byr-Qw-hJ7"/>
                         <outlet property="getDirectionsButton" destination="9Hz-L8-yku" id="7z5-BI-IVY"/>
-                        <outlet property="mapView" destination="V05-3t-gg2" id="KjP-8j-eQE"/>
+                        <outlet property="mapView" destination="HaY-Dz-7JD" id="uHR-DE-J28"/>
                         <outlet property="zoomIn" destination="bd5-kN-QrM" id="Y1Y-qy-Rfy"/>
                         <outlet property="zoomOut" destination="qbg-GO-It5" id="Adz-LI-7E6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="elR-Oy-sf9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7177" y="325"/>
+            <point key="canvasLocation" x="-7178.2608695652179" y="324.77678571428572"/>
         </scene>
         <!--Wait Times Controller-->
         <scene sceneID="yxn-ik-KpQ">
