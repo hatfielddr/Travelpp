@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20036.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2sQ-am-YdF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2sQ-am-YdF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20018.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -78,6 +78,17 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Sign Up" titleAlignment="center"/>
                                 <connections>
                                     <action selector="signUpButtonTriggered:" destination="2sQ-am-YdF" eventType="touchUpInside" id="wW3-RO-j9C"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhG-D9-tAg">
+                                <rect key="frame" x="137" y="790" width="140" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Forgot Password?">
+                                    <color key="baseForegroundColor" systemColor="systemGray5Color"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="forgotPassButtonTriggered:" destination="2sQ-am-YdF" eventType="touchUpInside" id="Sox-s4-Gke"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -966,6 +977,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiM-0P-cT9">
+                                <rect key="frame" x="170" y="626" width="73" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Back">
+                                    <color key="baseBackgroundColor" systemColor="systemBlueColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backButtonTriggered:" destination="kbx-J1-Py7" eventType="touchUpInside" id="6tK-eJ-wd2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zcG-1c-RIU"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
@@ -1000,7 +1022,93 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zgc-Hn-7gS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6078" y="-1266"/>
+            <point key="canvasLocation" x="-6078.2608695652179" y="-1266.2946428571429"/>
+        </scene>
+        <!--ResetPasswordController-->
+        <scene sceneID="XAV-qM-tTS">
+            <objects>
+                <viewController storyboardIdentifier="ResetPasswordController" title="ResetPasswordController" id="Kpb-fk-GtX" customClass="ResetPasswordController" customModule="Travel__" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uLU-Bz-hdd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="eCw-wb-svQ">
+                                <rect key="frame" x="59" y="27" width="306" height="396"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5O-Mk-Cf3" customClass="LoginContro">
+                                <rect key="frame" x="59" y="403" width="278" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ipI-Ar-jA1" userLabel="Username">
+                                <rect key="frame" x="61" y="431" width="292" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="292" id="1Pv-JU-v8d"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="EOB-8V-ldq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="292" id="QBW-xB-0eR"/>
+                                    <constraint firstAttribute="height" constant="34" id="bgp-21-6oZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ugh-yX-E3V">
+                                <rect key="frame" x="179" y="566" width="56" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Back">
+                                    <color key="baseBackgroundColor" systemColor="systemBlueColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backButtonTriggered:" destination="Kpb-fk-GtX" eventType="touchUpInside" id="rhx-Nf-6ft"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A password reset link will be sent to the email address you provide." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGY-qo-itO" customClass="LoginContro">
+                                <rect key="frame" x="48" y="339" width="298" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmQ-oA-Cbn">
+                                <rect key="frame" x="169.5" y="492" width="75" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="95" id="N9R-gf-KuJ"/>
+                                    <constraint firstAttribute="width" secondItem="vmQ-oA-Cbn" secondAttribute="height" multiplier="79:44" id="RwF-uQ-RKN"/>
+                                    <constraint firstAttribute="width" constant="75" id="TpG-ka-scn"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="hKU-6s-OKW"/>
+                                    <constraint firstAttribute="height" constant="42" id="oy9-bz-iQz"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Submit"/>
+                                <connections>
+                                    <action selector="submitButtonTriggered:" destination="Kpb-fk-GtX" eventType="touchUpInside" id="d6Y-QZ-PEO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vhp-1W-Ro4"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <constraints>
+                            <constraint firstItem="vmQ-oA-Cbn" firstAttribute="top" secondItem="ipI-Ar-jA1" secondAttribute="bottom" constant="27" id="18P-6Z-tBw"/>
+                            <constraint firstItem="Ugh-yX-E3V" firstAttribute="top" secondItem="vmQ-oA-Cbn" secondAttribute="bottom" constant="32" id="1r3-mw-HGb"/>
+                            <constraint firstItem="ipI-Ar-jA1" firstAttribute="centerX" secondItem="uLU-Bz-hdd" secondAttribute="centerX" id="5iw-0l-jFl"/>
+                            <constraint firstItem="ipI-Ar-jA1" firstAttribute="centerY" secondItem="uLU-Bz-hdd" secondAttribute="centerY" id="5oa-mJ-VxX"/>
+                            <constraint firstItem="vmQ-oA-Cbn" firstAttribute="width" secondItem="vmQ-oA-Cbn" secondAttribute="height" multiplier="79:44" id="MKD-5r-GBq"/>
+                            <constraint firstItem="vmQ-oA-Cbn" firstAttribute="width" secondItem="vmQ-oA-Cbn" secondAttribute="height" multiplier="79:44" id="bDQ-tQ-WJp"/>
+                            <constraint firstItem="vmQ-oA-Cbn" firstAttribute="centerX" secondItem="uLU-Bz-hdd" secondAttribute="centerX" id="cdM-wv-4Zd"/>
+                            <constraint firstItem="Ugh-yX-E3V" firstAttribute="centerX" secondItem="uLU-Bz-hdd" secondAttribute="centerX" id="eL9-k7-TtW"/>
+                            <constraint firstItem="vmQ-oA-Cbn" firstAttribute="width" secondItem="vmQ-oA-Cbn" secondAttribute="height" multiplier="79:44" id="w41-mn-zMt"/>
+                            <constraint firstItem="Ugh-yX-E3V" firstAttribute="centerX" secondItem="uLU-Bz-hdd" secondAttribute="centerX" id="zBz-tt-cWJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="username" destination="ipI-Ar-jA1" id="Egv-1o-KXW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3eU-Ei-25p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5391.304347826087" y="-1266.2946428571429"/>
         </scene>
         <!--Map-->
         <scene sceneID="22H-DQ-TYu">
@@ -1171,6 +1279,12 @@
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

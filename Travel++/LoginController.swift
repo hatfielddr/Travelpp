@@ -34,8 +34,16 @@ class LoginController: UIViewController {
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var signUpButton: UIButton!
     @IBOutlet var guestButton: UIButton!
+    @IBOutlet var forgotPassButton: UIButton!
     
     @IBOutlet weak var errMsg: UILabel!
+    
+    @IBAction func forgotPassButtonTriggered(_ sender: UIButton) {
+        // go to reset password page
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainController = storyboard.instantiateViewController(withIdentifier: "ResetPasswordController")
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
+    }
     
     @IBAction func doneButtonTriggered(_ sender: UIButton) {
         self.errMsg.isHidden = true
@@ -111,6 +119,11 @@ class LoginController: UIViewController {
             print("User signed in")
             print(uid)
             print(email)
+            
+            // skip login screen
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainController)
         } else {
             print("No user signed in")
         }
