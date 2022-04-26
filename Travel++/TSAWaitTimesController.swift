@@ -10,19 +10,16 @@ import Charts
 import TinyConstraints
 import GooglePlaces
 
-//global variables
-var searchController: UISearchController?
-
-class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchControllerDelegate, GMSAutocompleteResultsViewControllerDelegate  {
+class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchBarDelegate {
     
     //IBOutlets
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var airportLabel: UILabel!
     @IBOutlet weak var currentWaitTime: UILabel!
+    @IBOutlet weak var errorLabel: UILabel!
     
-    //local variables
-    var resultsViewController: GMSAutocompleteResultsViewController?
-    var resultView: UITextView?
+    //initialize TSA wait time chart data
+    var values: [ChartDataEntry] = []
     
     //create structures to store TSA wait time data
     struct Contents: Codable {
@@ -36,9 +33,6 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
         let data: [Contents]
     }
     
-    //initialize TSA wait time chart data
-    var values: [ChartDataEntry] = []
-
     //create chart
     lazy var lineChartView: LineChartView = {
         //make chart
@@ -71,6 +65,7 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
         return chartView
     }()
     
+    //setup
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,10 +73,8 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
-
         dateLabel.text = dateFormatter.string(from: date)
-        airportLabel.text = "IND"
-        currentWaitTime.text = "-"
+        errorLabel.isHidden = true
         
         //make chart background
         view.addSubview(lineChartView)
@@ -89,28 +82,24 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
         lineChartView.width(to: view)
         lineChartView.heightToWidth(of: view)
         
-        //set up search
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.delegate = self
-
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController as! UISearchResultsUpdating
-
-        // Put the search bar in the navigation bar.
-        searchController?.searchBar.sizeToFit()
-        navigationItem.titleView = searchController?.searchBar
-
-        // When UISearchController presents the results view, present it in
-        // this view controller, not one further up the chain.
-        definesPresentationContext = true
-
-        // Prevent the navigation bar from being hidden when searching.
-        searchController?.hidesNavigationBarDuringPresentation = false
+        //set up searchController
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        navigationItem.searchController?.searchBar.delegate = self
+        navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
+        navigationItem.searchController?.searchBar.placeholder = "Enter IATA code here..."
         
         //get initial json data
         pullWaitTimes(name: "IND")
     }
     
+    //respond when an iata code is searched
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print(searchBar.text!)
+        pullWaitTimes(name: searchBar.text!)
+    }
+
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         print(entry)
     }
@@ -136,6 +125,7 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
         lineChartView.data = data
     }
     
+    //pull wait times from TSA given the IATA code
     func pullWaitTimes(name: String) {
         print("IN PULL WAIT TIMES")
         
@@ -143,7 +133,6 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
         let index = Calendar.current.component(.weekday, from: Date()) // this returns an Int
         let day = Calendar.current.weekdaySymbols[index - 1] // subtract 1 since the index starts at 1
         let airportCode = name
-        airportLabel.text = airportCode
         
         //get time formatted in military time
         let components = Calendar.current.dateComponents([.hour], from: Date())
@@ -162,7 +151,17 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
             let decoder = JSONDecoder()
             let times = try! decoder.decode(Times.self, from: json)
             
-            //empty data
+            //error handling
+            if (times.data.isEmpty) {
+                //show error label
+                DispatchQueue.main.async {
+                    self.errorLabel.isHidden = false
+                }
+                print("Incorrect IATA Code: Airport does not exist")
+                return
+            }
+            
+            //reset data to be plotted
             values = []
 
             //add data to set entry array
@@ -172,10 +171,12 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
                 values.append(ChartDataEntry(x: xval!, y: yval!))
                 
                 //set currentWaitTime label to corresponding wait time
-                if (yval! == Double(hour)) {
+                if (xval! == Double(hour)) {
                     DispatchQueue.main.async {
                         print("HERE")
                         print(String(Int(yval!)))
+                        self.airportLabel.text = airportCode
+                        self.errorLabel.isHidden = true
                         self.currentWaitTime.text = String(Int(yval!))
                     }
                 }
@@ -184,15 +185,5 @@ class TSAWaitTimesController: UIViewController, ChartViewDelegate, UISearchContr
             setData()
         }
         task.resume()
-    }
-    
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
-        searchController?.isActive = false
-        pullWaitTimes(name: place.name!)
-        place.types
-    }
-    
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
-        print("Error: ", error.localizedDescription)
     }
 }
