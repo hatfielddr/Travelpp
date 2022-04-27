@@ -24,6 +24,8 @@ class SignUpController: UIViewController {
     @IBOutlet var signUpButton: UIButton!
     @IBOutlet var backButton: UIButton!
     
+    @IBOutlet weak var errMsg: UILabel!
+    
     @IBAction func backButtonTriggered(_ sender: UIButton) {
         // Get to login page
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -46,6 +48,7 @@ class SignUpController: UIViewController {
         if user != nil {
             // User is signed in; go to main view
             print("sign up successful")
+            self.errMsg.isHidden = true
             
             if let user = user {
                 let email = user.email
@@ -61,7 +64,12 @@ class SignUpController: UIViewController {
         } else {
             // No user is signed in
             print("sign up unsuccessful")
+            self.errMsg.isHidden = false
         }
+    }
+    
+    override func viewDidLoad() {
+        self.errMsg.isHidden = true
     }
     
 }
