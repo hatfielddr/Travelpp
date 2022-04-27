@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2sQ-am-YdF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2sQ-am-YdF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -167,6 +167,7 @@
                                     <outlet property="faveButton" destination="K4M-il-LdW" id="2hN-DT-wQe"/>
                                     <outlet property="nameLabel" destination="rOy-i4-thR" id="ddM-fi-MMk"/>
                                     <outlet property="ratingLabel" destination="eyb-pK-VeF" id="P1M-Qk-XSU"/>
+                                    <segue destination="kMk-bf-Q09" kind="show" identifier="RestaurantDetailSegue" id="Hbg-1t-11P"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -196,6 +197,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Byh-Sg-xeb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1978" y="346"/>
+        </scene>
+        <!--Restaurant Detail View Controller-->
+        <scene sceneID="24U-TM-s8r">
+            <objects>
+                <viewController id="kMk-bf-Q09" customClass="RestaurantDetailViewController" customModule="Travel__" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gDA-gm-Z3H">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="8RY-95-PM0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lnU-SI-ekS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ffu-tR-f8G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1068" y="343"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="TSW-G3-v2T">
@@ -949,16 +966,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="MTf-Xh-fQP">
-                                <rect key="frame" x="61" y="28" width="320" height="396"/>
+                                <rect key="frame" x="61" y="28" width="306" height="396"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vU-sW-1Gf" customClass="LoginContro">
-                                <rect key="frame" x="68" y="361" width="292" height="20.5"/>
+                                <rect key="frame" x="68" y="361" width="278" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9c-7s-VZm">
-                                <rect key="frame" x="68" y="449" width="292" height="20.5"/>
+                                <rect key="frame" x="68" y="449" width="278" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
