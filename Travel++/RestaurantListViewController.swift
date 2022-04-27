@@ -9,6 +9,7 @@ import UIKit
 import CDYelpFusionKit
 import SwiftUI
 import FirebaseDatabase
+import FirebaseAuthUI
 
 let yelpAPIClient = CDYelpAPIClient(apiKey: "5L45BSRF7lJZ1d0A7bYQo9SGHYTIay2ccCmIV3mO6WUEzgoLEJeP4yuvz9VCvBF86mZpT76M7XyYIOC7SLHX8qCB4PVagiMWiKewOojJeAvsHVOZBiXxoAWtKbcXYnYx")
 let numListings = 9
@@ -26,14 +27,33 @@ class RestaurantListViewController: UITableViewController {
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var viewFavButton: UIButton!
     
+    var favoritesList = [String]()
+    
     @IBAction func viewFavButtonTriggered(_ sender: UIButton) {
         self.performSegue(withIdentifier: "FavsSegue", sender: self)
     }
     override func viewDidLoad() {
         // Here we replace the default values
+        self.getFavorites()
         getData()
         locationLabel.text = location
         viewFavButton.isHidden = guest
+    }
+    
+    func getFavorites() {
+        // get current bookmarked restaurants from database
+        var userID = ""
+        let user = Auth.auth().currentUser
+        if let user = user { userID = user.uid }
+        else { return }
+        let nameRef = ref.child("users/\(userID)/bookmarkedRestaurants")
+        nameRef.observe(.value, with: { snapshot in
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let restaurantName = snap.value as! String
+                self.favoritesList.append(restaurantName)
+            }
+        })
     }
     
     func getData() {
@@ -64,8 +84,14 @@ class RestaurantListViewController: UITableViewController {
               businesses.count > 0 {
               print("\n\n\n\n")
               var count = 0
+                
+                    
               for business in businesses {
-                  restaurantList[count] = Restaurant(name: business.name!, rating: business.rating!, isFavorite: false)
+                  if (self.favoritesList.contains(business.name!)) {
+                      restaurantList[count] = Restaurant(name: business.name!, rating: business.rating!, isFavorite: true)
+                  } else {
+                      restaurantList[count] = Restaurant(name: business.name!, rating: business.rating!, isFavorite: false)
+                  }
                   count += 1
               }
                 group.leave()
@@ -102,15 +128,27 @@ extension RestaurantListViewController {
         
         cell.faveButton.setBackgroundImage(image, for: .normal)
         cell.faveButtonAction = {
+            var userID = ""
+            
+            let user = Auth.auth().currentUser
+            if let user = user {
+                userID = user.uid
+            } else {
+                print("No user signed in")
+                return
+            }
+            
             restaurantList[indexPath.row].isFavorite.toggle()
             tableView.reloadRows(at: [indexPath], with: .none)
             let str = String(indexPath.row)
             let indexStr = "rest" + str
             if (restaurant.isFavorite == false) {
-                ref.child("bookmarkedRestaurants/name").child(indexStr).setValue(restaurant.name)
+                ref.child("users/\(userID)/bookmarkedRestaurants").updateChildValues([indexStr: restaurant.name])
+                //ref.child("users/bookmarkedRestaurants/name").child(indexStr).setValue(restaurant.name)
             }
             if (restaurant.isFavorite == true) {
-                ref.child("bookmarkedRestaurants/name").child(indexStr).setValue(nil)
+                ref.child("users/\(userID)/bookmarkedRestaurants").updateChildValues([indexStr: nil])
+                //ref.child("bookmarkedRestaurants/name").child(indexStr).setValue(nil)
             }
         }
         return cell
