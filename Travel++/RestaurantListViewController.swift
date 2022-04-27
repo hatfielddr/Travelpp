@@ -14,6 +14,7 @@ import FirebaseAuthUI
 let yelpAPIClient = CDYelpAPIClient(apiKey: "5L45BSRF7lJZ1d0A7bYQo9SGHYTIay2ccCmIV3mO6WUEzgoLEJeP4yuvz9VCvBF86mZpT76M7XyYIOC7SLHX8qCB4PVagiMWiKewOojJeAvsHVOZBiXxoAWtKbcXYnYx")
 let numListings = 9
 let location = "San Francisco"
+let def_url = URL (string: "https://www.apple.com")
 
 
 
@@ -21,7 +22,7 @@ let ref = Database.database().reference()
 
 
 // List is created here with 9 default values otherwise the app has a fit for some reason
-var restaurantList = [Restaurant](repeating: Restaurant(name: "", rating: 0), count: numListings)
+var restaurantList = [Restaurant](repeating: Restaurant(name: "", rating: 0, url: def_url!), count: numListings)
 
 class RestaurantListViewController: UITableViewController {
     @IBOutlet var locationLabel: UILabel!
@@ -88,9 +89,9 @@ class RestaurantListViewController: UITableViewController {
                     
               for business in businesses {
                   if (self.favoritesList.contains(business.name!)) {
-                      restaurantList[count] = Restaurant(name: business.name!, rating: business.rating!, isFavorite: true)
+                      restaurantList[count] = Restaurant(name: business.name!, rating: business.rating!, isFavorite: true, url: business.url!)
                   } else {
-                      restaurantList[count] = Restaurant(name: business.name!, rating: business.rating!, isFavorite: false)
+                      restaurantList[count] = Restaurant(name: business.name!, rating: business.rating!, isFavorite: false, url: business.url!)
                   }
                   count += 1
               }
@@ -152,5 +153,14 @@ extension RestaurantListViewController {
             }
         }
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RestaurantDetailSegue" {
+            let detailViewController = segue.destination as! RestaurantDetailViewController
+            let myIndexPath = self.tableView.indexPathForSelectedRow!
+            let row = myIndexPath.row
+            detailViewController.restaurant = restaurantList[row]
+        }
     }
 }

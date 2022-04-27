@@ -36,6 +36,7 @@
 		C318673527F3DD1A003A1C6F /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318673427F3DD1A003A1C6F /* ChangeEmailViewController.swift */; };
 		C32BFD8327C05EE600EA62B5 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BFD8227C05EE600EA62B5 /* BookmarkView.swift */; };
 		C32BFDAA27C1CDE900EA62B5 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BFDA927C1CDE900EA62B5 /* LoginController.swift */; };
+		C36A1320281A0459002CDF5B /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A131F281A0459002CDF5B /* RestaurantDetailViewController.swift */; };
 		C3EC97F827C86AB9005DF63B /* FavoritesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC97F727C86AB9005DF63B /* FavoritesListCell.swift */; };
 		C3EC97FA27C86AEA005DF63B /* FavoritesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */; };
 		CFF8271AF2D27BB7A03DD8B6 /* Pods_Travel__.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8FE09A30F54E5E5A5179B5 /* Pods_Travel__.framework */; };
@@ -76,6 +77,7 @@
 		C318673427F3DD1A003A1C6F /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
 		C32BFD8227C05EE600EA62B5 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
 		C32BFDA927C1CDE900EA62B5 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C36A131F281A0459002CDF5B /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
 		C3EC97F727C86AB9005DF63B /* FavoritesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListCell.swift; sourceTree = "<group>"; };
 		C3EC97F927C86AEA005DF63B /* FavoritesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +125,7 @@
 				7B8D20BC27F2519C00F6CB9F /* SignUpController.swift */,
 				272CA27827C81B8B00AD210D /* MapViewController.swift */,
 				277E52C127B6E7A80041716F /* Main.storyboard */,
+				C36A131F281A0459002CDF5B /* RestaurantDetailViewController.swift */,
 				C318673427F3DD1A003A1C6F /* ChangeEmailViewController.swift */,
 				C318673227F3D4BA003A1C6F /* ChangeNameViewController.swift */,
 				C318673027F2927A003A1C6F /* ChangePasswordViewController.swift */,
@@ -308,6 +311,7 @@
 				272AD1C027F6540300D266F8 /* DirectionsViewController.swift in Sources */,
 				272AD1BC27F6485300D266F8 /* TSAWaitTimesController.swift in Sources */,
 				C3EC97FA27C86AEA005DF63B /* FavoritesListViewController.swift in Sources */,
+				C36A1320281A0459002CDF5B /* RestaurantDetailViewController.swift in Sources */,
 				277E52BC27B6E7A80041716F /* AppDelegate.swift in Sources */,
 				C318672D27EBCEB2003A1C6F /* FlightDetailViewController.swift in Sources */,
 				C318672F27F28490003A1C6F /* ProfileViewController.swift in Sources */,
