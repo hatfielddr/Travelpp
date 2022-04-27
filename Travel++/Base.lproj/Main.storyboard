@@ -949,22 +949,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="MTf-Xh-fQP">
-                                <rect key="frame" x="61" y="28" width="306" height="396"/>
+                                <rect key="frame" x="61" y="28" width="320" height="396"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vU-sW-1Gf" customClass="LoginContro">
-                                <rect key="frame" x="68" y="361" width="278" height="20.5"/>
+                                <rect key="frame" x="68" y="361" width="292" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9c-7s-VZm">
-                                <rect key="frame" x="68" y="449" width="278" height="20.5"/>
+                                <rect key="frame" x="68" y="449" width="292" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jY-m5-ImV">
-                                <rect key="frame" x="169.5" y="557" width="75" height="42"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jY-m5-ImV">
+                                <rect key="frame" x="176" y="584" width="75" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7jY-m5-ImV" secondAttribute="height" multiplier="79:44" id="BVJ-nH-zdC"/>
                                 </constraints>
@@ -992,7 +992,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiM-0P-cT9">
-                                <rect key="frame" x="170" y="626" width="73" height="31"/>
+                                <rect key="frame" x="178" y="634" width="73" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Back">
@@ -1002,6 +1002,13 @@
                                     <action selector="backButtonTriggered:" destination="kbx-J1-Py7" eventType="touchUpInside" id="6tK-eJ-wd2"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invalid email or password. Please enter a valid email address and a password longer than 6 characters." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAO-Q7-BwV" userLabel="ErrMsg">
+                                <rect key="frame" x="61" y="688" width="305" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zcG-1c-RIU"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
@@ -1030,6 +1037,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="errMsg" destination="fAO-Q7-BwV" id="QPd-Nu-AKY"/>
                         <outlet property="password" destination="Hcw-f7-eDF" id="xbF-Sc-cg9"/>
                         <outlet property="username" destination="ll0-LD-UPh" id="meM-AR-ent"/>
                     </connections>
