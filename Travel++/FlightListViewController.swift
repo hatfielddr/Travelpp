@@ -51,10 +51,10 @@ class FlightListViewController: UITableViewController {
                                 newFlight.date = json["flights"][0]["scheduled_out"].stringValue.replacingOccurrences(of: "T", with: " ").replacingOccurrences(of: "Z", with: "")
                                 newFlight.status = json["flights"][0]["status"].stringValue
                                 newFlight.delay = json["flights"][0]["arrival_delay"].stringValue
-                                newFlight.scheduled_out = json["flights"][0]["scheduled_out"].stringValue
-                                newFlight.scheduled_off = json["flights"][0]["scheduled_off"].stringValue
-                                newFlight.scheduled_on = json["flights"][0]["scheduled_on"].stringValue
-                                newFlight.scheduled_in = json["flights"][0]["scheduled_in"].stringValue
+                                newFlight.scheduled_out = json["flights"][0]["scheduled_out"].stringValue.replacingOccurrences(of: "T", with: " ").replacingOccurrences(of: "Z", with: "")
+                                newFlight.scheduled_off = json["flights"][0]["scheduled_off"].stringValue.replacingOccurrences(of: "T", with: " ").replacingOccurrences(of: "Z", with: "")
+                                newFlight.scheduled_on = json["flights"][0]["scheduled_on"].stringValue.replacingOccurrences(of: "T", with: " ").replacingOccurrences(of: "Z", with: "")
+                                newFlight.scheduled_in = json["flights"][0]["scheduled_in"].stringValue.replacingOccurrences(of: "T", with: " ").replacingOccurrences(of: "Z", with: "")
                                 //handle if json value is null
                                 if let term_org = json["flights"][0]["terminal_origin"].stringValue as? String {
                                     newFlight.terminal_origin = term_org

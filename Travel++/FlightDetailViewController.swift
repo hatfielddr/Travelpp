@@ -56,7 +56,7 @@ class FlightDetailViewController: UIViewController {
         }
         }
         sch_out.text = flight?.scheduled_out
-        sch_off.text = flight?.scheduled_out
+        sch_off.text = flight?.scheduled_off
         sch_on.text = flight?.scheduled_on
         sch_in.text = flight?.scheduled_in
         let terminal_origin_val = flight?.terminal_origin
