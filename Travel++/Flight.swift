@@ -20,4 +20,14 @@ struct Flight {
     var status: String
     var delay: String
     
+    var scheduled_out: String
+    var scheduled_off: String
+    var scheduled_on: String
+    var scheduled_in: String
+    var terminal_origin: String
+    var gate_origin: String
+    var terminal_dest: String
+    var gate_dest: String
+    var baggage_claim: String
+    
 }
