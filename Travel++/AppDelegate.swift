@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyCTPAwUf5otRc0iasTbKZDY5-jh5HXBxUw")
         GMSPlacesClient.provideAPIKey("AIzaSyA7og50VFTk6EC9H-cq09vQk5xGA2znJJc")
-
         FirebaseApp.configure()
         
         return true
