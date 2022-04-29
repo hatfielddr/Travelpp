@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuthUI
+import SwiftUI
 
 class FlightDetailViewController: UIViewController {
     typealias EditButtonAction = () -> Void
@@ -46,14 +47,13 @@ class FlightDetailViewController: UIViewController {
         status.text = flight?.status
         flightNo = flight?.flightNo ?? "Unknown"
         print("FlightNo = \(flightNo)")
-        if (flight?.delay != "") {
-        let d = Int(flight!.delay)! / 60
+        let d = Int(flight?.delay ?? "0") ?? 0 / 60
+        
         if d < 0 {
             delay.text = "Early: " + String(-d) + " minutes"
         }
         else {
             delay.text = "Delay: " + String(d) + " minutes"
-        }
         }
         sch_out.text = flight?.scheduled_out
         sch_off.text = flight?.scheduled_off
@@ -127,6 +127,7 @@ class FlightDetailViewController: UIViewController {
         } else {
             print("No user signed in")
         }
+        
         
     }
 }

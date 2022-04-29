@@ -15,6 +15,7 @@ import SwiftyJSON
 
 var flightList = [Flight](repeating: Flight(airline: "", date: "", dest: "", flightID: "", flightNo: "", origin: "", status: "", delay: "", scheduled_out: "", scheduled_off: "", scheduled_on: "", scheduled_in: "",
                 terminal_origin: "", gate_origin: "", terminal_dest: "", gate_dest: "", baggage_claim: ""), count: 1)
+var flag = false
 
 class FlightListViewController: UITableViewController {
     
@@ -27,12 +28,22 @@ class FlightListViewController: UITableViewController {
                                          "x-apikey":"upPer7vTPCAdvfJPG5uMN1m3gkXdWNlK"]
         
         AF.request(urlStr, parameters: [:], headers: headers).responseJSON { response in
+        data:
             if response.data != nil {
                 do {
                     let json = try JSON(data: response.data!)
-                    print(json)
-                    newFlight.flightID = json["flights"][0]["fa_flight_id"];
-                    print(newFlight.flightID)
+                    let temp = json["flights"][0]["fa_flight_id"]
+                    if (temp.stringValue != "") {
+                        newFlight.flightID = temp
+                        flag = true
+                    }
+                    else {
+                        flag = false
+                        print("INVALID FLIGHT ID")
+                    }
+                    //print(newFlight.flightID)
+                    
+                    if (flag) {
                     
                     // Second API call must be within the first's block to remain async
                     // Don't ask idk how to explain it very well, just put things that
@@ -42,8 +53,8 @@ class FlightListViewController: UITableViewController {
                         if response.data != nil {
                             do {
                                 let json = try JSON(data: response.data!)
-                                print(json["flights"][0]["departure_delay"])
-                                print(json["flights"][0]["arrival_delay"])
+                                //print(json["flights"][0]["departure_delay"])
+                                //print(json["flights"][0]["arrival_delay"])
                                 newFlight.dest = String(json["flights"][0]["destination"]["code"].stringValue.dropFirst(1))
                                 newFlight.origin = String(json["flights"][0]["origin"]["code"].stringValue.dropFirst(1))
                                 newFlight.flightNo = flightAirline+flightId
@@ -101,6 +112,7 @@ class FlightListViewController: UITableViewController {
                             }
                         }
                     }
+                    }
                 } catch _ as NSError {
                     result(nil)
                 }
@@ -115,7 +127,9 @@ class FlightListViewController: UITableViewController {
     @IBAction func done(segue:UIStoryboardSegue) {
         let flightAddVC = segue.source as! FlightAddViewController
         fetchFlights(flightAirline: flightAddVC.flightAirlineString, flightId: flightAddVC.flightIdString, flightOrigin: flightAddVC.flightOriginString){(f: Flight?) -> Void in
-            flightList.append(f!)
+            if (flag) {
+                flightList.append(f!)
+            }
             
             self.tableView.reloadData()
         }
@@ -141,11 +155,19 @@ class FlightListViewController: UITableViewController {
         // Here we replace the default values
         self.refreshControl?.addTarget(self, action: #selector(refresher), for: UIControl.Event.valueChanged)
         getData()
+        self.tableView.reloadData()
     }
     
     func viewDidAppear() {
         self.refreshControl?.addTarget(self, action: #selector(refresher), for: UIControl.Event.valueChanged)
         getData()
+        self.tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.refreshControl?.addTarget(self, action: #selector(refresher), for: UIControl.Event.valueChanged)
+        getData()
+        self.tableView.reloadData()
     }
     
     func getData() {
@@ -161,7 +183,7 @@ class FlightListViewController: UITableViewController {
                     group.enter()
                     let snap = child as! DataSnapshot
                     let flightDict = snap.value as! [String: Any]
-                    print(flightDict)
+                    //print(flightDict)
                     
                     var airlineVar = ""
                     if let airlineDB = flightDict["airline"] {
@@ -236,7 +258,7 @@ class FlightListViewController: UITableViewController {
                     }
                     flightList[count] = Flight(airline: airlineVar, date: dateVar, dest: destVar, flightID: JSON(rawValue: flightidVar) ?? "", flightNo: flightnoVar, origin: orgVar, status: statusVar, delay: delayVar, scheduled_out: sch_out_Var, scheduled_off: sch_off_Var, scheduled_on: sch_on_Var, scheduled_in: sch_in_Var, terminal_origin: termorgVar, gate_origin: gateorgVar, terminal_dest: termdestVar, gate_dest: gatedestVar, baggage_claim: baggageVar)
                     
-                    print(flightList[count])
+                    //print(flightList[count])
                     count+=1
                     self.tableView.reloadData()
                     group.leave()
