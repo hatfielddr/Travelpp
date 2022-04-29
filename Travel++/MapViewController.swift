@@ -19,7 +19,7 @@ var longitude = Double()
 var toSelectedName = String()
 var fromSelectedName = String()
 
-//var bounds = CGRect()
+//let bounds = CGRect(x: 0.0, y: 0.0, width: 414.0, height: 725.0)
 
 class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate {
     @IBOutlet var mapView: UIView!
@@ -39,12 +39,16 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         latitude = 39.8283
         longitude = -98.5795
         
-        //bounds = mapView.bounds
+//        let bounds = CGRect(x: 0.0, y: 0.0, width: 414.0, height: 725.0)
+//        print(bounds)
+        mapView.bounds = CGRect(x: 0.0, y: 0.0, width: 414.0, height: 725.0)
         
         //set up search bar
         searchVC.searchBar.backgroundColor = .black
         searchVC.searchResultsUpdater = self
         navigationItem.searchController = searchVC
+        
+        //self.searchVC.hidesNavigationBarDuringPresentation = false
         
         //set up location permission
         locationManager.requestAlwaysAuthorization()
@@ -63,8 +67,9 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
         
-        self.view = mapView
-        self.view.addSubview(map)
+        self.view = map
+//        self.view = mapView
+//        self.view.addSubview(map)
         self.view.addSubview(getDirectionsButton)
     }
     
