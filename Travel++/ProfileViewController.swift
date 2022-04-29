@@ -35,6 +35,25 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
     @IBOutlet var createAccountButton: UIButton!
     @IBOutlet weak var notifications: UISwitch!
     
+    @IBAction func changeNotificationsTriggered(_ sender: UISwitch) {
+        var user_id = ""
+        
+        let user = Auth.auth().currentUser
+        if let user = user {
+            user_id = user.uid
+        } else {
+            print("No user signed in")
+        }
+        
+        if (notifications.isOn) {
+            print("turned notifs on")
+            database.child("users/\(user_id)").updateChildValues(["notificationsPreference": "on"])
+        } else {
+            print("turned notifs off")
+            database.child("users/\(user_id)").updateChildValues(["notificationsPreference": "off"])
+        }
+    }
+    
     @IBAction func changePassTriggered(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ChangePasswordSegue", sender: self)
     }
@@ -127,9 +146,16 @@ class ProfileViewController: UIViewController, UpdateName, UpdateEmail {
             let firstname = value?["first_name"] as? String ?? ""
             let lastname = value?["last_name"] as? String ?? ""
             let email = value?["email"] as? String ?? ""
-            print("\(firstname), \(lastname), \(email)")
+            let notificationsPreference = value?["notificationsPreference"] as? String ?? ""
+            print("\(firstname), \(lastname), \(email), \(notificationsPreference)")
             self.name.text = "\(firstname) \(lastname)"
             self.email.text = "\(email)"
+            
+            if (notificationsPreference == "off") {
+                self.notifications.setOn(false, animated:false)
+            } else {
+                self.notifications.setOn(true, animated:false)
+            }
         }) { error in
           print(error.localizedDescription)
         }
