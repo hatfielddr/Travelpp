@@ -13,30 +13,32 @@ import GoogleMaps
 
 var currentLatitude = Double()
 var currentLongitude = Double()
-
-
 var latitude = Double()
 var longitude = Double()
 
+var toSelectedName = String()
+var fromSelectedName = String()
+
+//var map = GMSMapView()
+
 class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationManagerDelegate {
 
-    @IBOutlet weak var zoomIn: UIButton!
-    @IBOutlet weak var zoomOut: UIButton!
-    @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var getDirectionsButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
+    //var camera: GMSCameraPosition!
     
-    let searchVC = UISearchController(searchResultsController: ResultsViewController())
     let locationManager = CLLocationManager()
-
+    let searchVC = UISearchController(searchResultsController: ResultsViewController())
+    
     var zoom = Float(4.0)
-    var center = CLLocationCoordinate2D()
+    //var center = CLLocationCoordinate2D()
+    var bounds = CGRect()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Maps"
         
-        selectedName = "Center of United States (0.0, 0.0)"
+        toSelectedName = "Center of United States"
         
         latitude = 39.8283
         longitude = -98.5795
@@ -44,6 +46,7 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         //set up search bar
         searchVC.searchBar.backgroundColor = .black
         searchVC.searchResultsUpdater = self
+        //searchVC.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchVC
         
         //set up location permission
@@ -57,30 +60,25 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         }
         
         //set up initial map location
+        bounds = mapView.bounds
         let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: self.zoom)
+        //self.map.delegate = self
         let map = GMSMapView.map(withFrame: mapView.bounds, camera: camera)
-        
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
-        
         self.view = mapView
         self.view.addSubview(map)
-        reload()
-    }
-    
-    //fix this: make sure the center of the map is constantly being updated with movements
-    //which then set the latitude and longitude
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        center = mapView.centerCoordinate
-        print("Latitude: \(center.latitude), Longitude: \(center.longitude)")
-    }
-    
-    func reload() {
-        self.view.addSubview(zoomIn)
-        self.view.addSubview(zoomOut)
-        self.view.addSubview(currentLocationButton)
         self.view.addSubview(getDirectionsButton)
     }
+    
+    //update viewing latitude when user moves map camera
+//    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+//        latitude = position.target.latitude
+//        longitude = position.target.longitude
+//        toSelectedName = String(format: "latitude: %.3f, longitude: %.3f", latitude, longitude)
+//
+//        print(position.target)
+//    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
@@ -89,30 +87,9 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
     
-    @IBAction func currentLocation(_ sender: Any) {
-        var coordinate = CLLocationCoordinate2D()
-        coordinate.latitude = currentLatitude
-        coordinate.longitude = currentLongitude
-        didTapPlace(with: coordinate)
-    }
-    
-    @IBAction func ZoomIn(_ sender: Any) {
-        zoom += 1
-        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: zoom)
-        let map = GMSMapView.map(withFrame: mapView.bounds, camera: camera)
-        self.view.addSubview(map)
-        reload()
-    }
-    
-    @IBAction func ZoomOut(_ sender: Any) {
-        zoom -= 1
-        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: zoom)
-        let map = GMSMapView.map(withFrame: mapView.bounds, camera: camera)
-        self.view.addSubview(map)
-        reload()
-    }
-    
+    //handles search results
     func updateSearchResults(for searchController: UISearchController) {
+        print("in mapviewcontroller updateSearchResults")
         guard let query = searchController.searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               let resultsVC = searchController.searchResultsController as? ResultsViewController else {
@@ -126,6 +103,7 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
             case .success(let places):
                 DispatchQueue.main.async {
                     resultsVC.update(with: places)
+                    print("after")
                 }
             case .failure(let error):
                 print(error)
@@ -136,17 +114,23 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
 
 extension MapViewController: ResultsViewControllerDelegate {
     func didTapPlace(with coordinates: CLLocationCoordinate2D) {
+        print("mapviewcontroller: didTapPlace")
         //put keyboard down
         searchVC.searchBar.resignFirstResponder()
         searchVC.dismiss(animated: true, completion: nil)
         
         latitude = coordinates.latitude
         longitude = coordinates.longitude
+        //toSelectedName = String(format: "lat: %.3f, long: %.3f", latitude, longitude)
         zoom = Float(18.0)
         
         let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: zoom)
-        let map = GMSMapView.map(withFrame: mapView.bounds, camera: camera)
+        let map = GMSMapView.map(withFrame: bounds, camera: camera)
+        map.isMyLocationEnabled = true
+        map.settings.myLocationButton = true
+        self.view = mapView
         self.view.addSubview(map)
-        reload()
+        self.view.addSubview(getDirectionsButton)
     }
 }
+

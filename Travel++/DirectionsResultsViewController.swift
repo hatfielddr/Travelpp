@@ -12,8 +12,6 @@ protocol DirectionsResultsViewControllerDelegate: AnyObject {
     func didTapPlace(with coordinates: CLLocationCoordinate2D)
 }
 
-//var selectedName = String()
-
 class DirectionsResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     weak var delegate: DirectionsResultsViewControllerDelegate?
@@ -60,6 +58,7 @@ class DirectionsResultsViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("here")
         tableView.deselectRow(at: indexPath, animated: true)
         
         tableView.isHidden = true
@@ -68,7 +67,13 @@ class DirectionsResultsViewController: UIViewController, UITableViewDelegate, UI
         GooglePlacesManager.shared.resolveLocation(for: place) { [weak self] result in
             switch result {
             case .success(let coordinate):
-                selectedName = place.name
+                
+                if (toSearch) {
+                    toSelectedName = place.name
+                } else {
+                    fromSelectedName = place.name
+                }
+                    
                 DispatchQueue.main.async {
                     self?.delegate?.didTapPlace(with: coordinate)
                 }

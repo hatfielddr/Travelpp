@@ -8,6 +8,9 @@
 import UIKit
 import MapKit
 
+var toSearch = false
+var fromSearch = false
+
 class DirectionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
     @IBOutlet weak var searchButton: UIButton!
@@ -23,9 +26,6 @@ class DirectionsViewController: UIViewController, UITableViewDataSource, UITable
     var stepsArray = [String]()
     var distancesArray = [MKRoute.Step]()
     
-    var toSearch = false
-    var fromSearch = false
-    
     let searchVC1 = UISearchController(searchResultsController: DirectionsResultsViewController())
     let searchVC2 = UISearchController(searchResultsController: DirectionsResultsViewController())
     
@@ -40,15 +40,17 @@ class DirectionsViewController: UIViewController, UITableViewDataSource, UITable
         
         searchVC1.searchResultsUpdater = self
         searchVC1.searchBar.delegate = self
-        searchVC1.searchBar.placeholder = selectedName
+        searchVC1.searchBar.placeholder = toSelectedName
         searchVC1.hidesNavigationBarDuringPresentation = false
         searchVC1.isActive = true
+        searchVC1.hidesNavigationBarDuringPresentation = false
         
         searchVC2.searchResultsUpdater = self
         searchVC2.searchBar.delegate = self
         searchVC2.searchBar.placeholder = "Current Location"
         searchVC2.hidesNavigationBarDuringPresentation = false
         searchVC2.isActive = true
+        searchVC2.hidesNavigationBarDuringPresentation = false
         
         toSearchView.addSubview(searchVC1.searchBar)
         fromSearchView.addSubview(searchVC2.searchBar)
@@ -194,12 +196,10 @@ extension DirectionsViewController: DirectionsResultsViewControllerDelegate {
         if (toSearch == true) {
             print("toSearch == true")
             toLatitude = coordinates.latitude
-            latitude = toLatitude
             toLongitude = coordinates.longitude
-            longitude = toLongitude
             searchVC1.searchBar.resignFirstResponder()
             searchVC1.dismiss(animated: true, completion: nil)
-            searchVC1.searchBar.text = selectedName
+            searchVC1.searchBar.text = toSelectedName
             toSearch = false
         }
         
@@ -209,7 +209,7 @@ extension DirectionsViewController: DirectionsResultsViewControllerDelegate {
             fromLongitude = coordinates.longitude
             searchVC2.searchBar.resignFirstResponder()
             searchVC2.dismiss(animated: true, completion: nil)
-            searchVC2.searchBar.text = selectedName
+            searchVC2.searchBar.text = fromSelectedName
             fromSearch = false
         }
     }

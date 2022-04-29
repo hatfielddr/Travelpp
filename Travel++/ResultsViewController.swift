@@ -13,8 +13,6 @@ protocol ResultsViewControllerDelegate: AnyObject {
     func didTapPlace(with coordinates: CLLocationCoordinate2D)
 }
 
-var selectedName = String()
-
 class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     weak var delegate: ResultsViewControllerDelegate?
@@ -66,9 +64,9 @@ class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewD
         GooglePlacesManager.shared.resolveLocation(for: place) { [weak self] result in
             switch result {
             case .success(let coordinate):
-                selectedName = place.name
                 DispatchQueue.main.async {
                     self?.delegate?.didTapPlace(with: coordinate)
+                    toSelectedName = place.name
                 }
             case .failure(let error):
                 print(error)
