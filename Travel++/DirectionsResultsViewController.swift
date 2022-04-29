@@ -1,21 +1,20 @@
 //
-//  ResultsViewController.swift
+//  DirectionsResultsViewController.swift
 //  Travel++
 //
-//  Created by Emily Blanchard on 3/28/22.
-//  Used iOS Academy tutorial
+//  Created by Emily Blanchard on 4/25/22.
 //
 
 import UIKit
 import CoreLocation
 
-protocol ResultsViewControllerDelegate: AnyObject {
+protocol DirectionsResultsViewControllerDelegate: AnyObject {
     func didTapPlace(with coordinates: CLLocationCoordinate2D)
 }
 
-class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DirectionsResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    weak var delegate: ResultsViewControllerDelegate?
+    weak var delegate: DirectionsResultsViewControllerDelegate?
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -27,6 +26,7 @@ class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var places: [Place] = []
 
     override func viewDidLoad() {
+        print("in viewDidLoad")
         super.viewDidLoad()
         view.addSubview(tableView)
         view.backgroundColor = .clear
@@ -35,12 +35,14 @@ class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func update(with places: [Place]) {
+        print("in update")
         self.tableView.isHidden = false
         self.places = places
         tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
+        print("in viewDidLayoutSubviews")
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
@@ -56,6 +58,7 @@ class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("here")
         tableView.deselectRow(at: indexPath, animated: true)
         
         tableView.isHidden = true
@@ -64,9 +67,15 @@ class ResultsViewController: UIViewController, UITableViewDelegate, UITableViewD
         GooglePlacesManager.shared.resolveLocation(for: place) { [weak self] result in
             switch result {
             case .success(let coordinate):
+                
+                if (toSearch) {
+                    toSelectedName = place.name
+                } else {
+                    fromSelectedName = place.name
+                }
+                    
                 DispatchQueue.main.async {
                     self?.delegate?.didTapPlace(with: coordinate)
-                    toSelectedName = place.name
                 }
             case .failure(let error):
                 print(error)
