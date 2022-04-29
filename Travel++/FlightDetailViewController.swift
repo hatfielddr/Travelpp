@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuthUI
+import SwiftUI
 
 class FlightDetailViewController: UIViewController {
     typealias EditButtonAction = () -> Void
@@ -82,6 +83,7 @@ class FlightDetailViewController: UIViewController {
         } else {
             print("No user signed in")
         }
+        
         
     }
 }

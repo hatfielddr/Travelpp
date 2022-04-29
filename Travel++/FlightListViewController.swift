@@ -122,11 +122,19 @@ class FlightListViewController: UITableViewController {
         // Here we replace the default values
         self.refreshControl?.addTarget(self, action: #selector(refresher), for: UIControl.Event.valueChanged)
         getData()
+        self.tableView.reloadData()
     }
     
     func viewDidAppear() {
         self.refreshControl?.addTarget(self, action: #selector(refresher), for: UIControl.Event.valueChanged)
         getData()
+        self.tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.refreshControl?.addTarget(self, action: #selector(refresher), for: UIControl.Event.valueChanged)
+        getData()
+        self.tableView.reloadData()
     }
     
     func getData() {
