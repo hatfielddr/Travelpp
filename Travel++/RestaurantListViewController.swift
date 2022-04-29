@@ -13,7 +13,7 @@ import FirebaseAuthUI
 
 let yelpAPIClient = CDYelpAPIClient(apiKey: "5L45BSRF7lJZ1d0A7bYQo9SGHYTIay2ccCmIV3mO6WUEzgoLEJeP4yuvz9VCvBF86mZpT76M7XyYIOC7SLHX8qCB4PVagiMWiKewOojJeAvsHVOZBiXxoAWtKbcXYnYx")
 let numListings = 9
-let location = "San Francisco"
+let location = "Current Location"
 let def_url = URL (string: "https://www.apple.com")
 
 
@@ -66,9 +66,9 @@ class RestaurantListViewController: UITableViewController {
         yelpAPIClient.cancelAllPendingAPIRequests()
         // Query Yelp Fusion API for business results
         yelpAPIClient.searchBusinesses(byTerm: "Food",
-                                       location: location,
-                                       latitude: nil,
-                                       longitude: nil,
+                                       location: nil,
+                                       latitude: currentLatitude,
+                                       longitude: currentLongitude,
                                        radius: 10000,
                                        categories: [.activeLife, .food],
                                        locale: .english_unitedStates,

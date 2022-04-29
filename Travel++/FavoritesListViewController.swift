@@ -8,9 +8,10 @@
 import UIKit
 import SwiftUI
 import FirebaseDatabase
+import FirebaseAuthUI
 
 
-var favNameList = [String](repeating: String(""), count: numListings)
+var favNameList = [String](repeating: String(""), count: 0)
 
 class FavoritesListViewController: UITableViewController {
     
@@ -18,7 +19,34 @@ class FavoritesListViewController: UITableViewController {
     
     override func viewDidLoad() {
         // Here we replace the default values
-        getData()
+        getFavorites()
+        self.tableView.reloadData()
+    }
+    
+    func getFavorites() {
+        let group = DispatchGroup()
+        favNameList = [String](repeating: String(""), count: 0)
+        group.enter()
+        
+        // get current bookmarked restaurants from database
+        var userID = ""
+        let user = Auth.auth().currentUser
+        if let user = user { userID = user.uid }
+        else { return }
+        let nameRef = ref.child("users/\(userID)/bookmarkedRestaurants")
+        nameRef.observe(.value, with: { snapshot in
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let restaurantName = snap.value as! String
+                favNameList.append(restaurantName)
+            }
+        })
+        group.leave()
+        group.notify(queue: .main, execute: {
+            print("Going to Refresh")
+            self.refreshControl?.endRefreshing()
+            self.tableView.reloadData()
+        })
     }
     
     func getData() {
