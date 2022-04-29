@@ -14,6 +14,7 @@ import SwiftyJSON
 
 
 var flightList = [Flight](repeating: Flight(airline: "", date: "", dest: "", flightID: "", flightNo: "", origin: "", status: "", delay: ""), count: 1)
+var flag = false
 
 class FlightListViewController: UITableViewController {
     
@@ -25,11 +26,22 @@ class FlightListViewController: UITableViewController {
                                          "x-apikey":"HjhlXTf3o0G0V9tOnA5hU385xU0BKGb5"]
         
         AF.request(urlStr, parameters: [:], headers: headers).responseJSON { response in
+        data:
             if response.data != nil {
                 do {
                     let json = try JSON(data: response.data!)
-                    newFlight.flightID = json["flights"][0]["fa_flight_id"];
-                    print(newFlight.flightID)
+                    let temp = json["flights"][0]["fa_flight_id"]
+                    if (temp.stringValue != "") {
+                        newFlight.flightID = temp
+                        flag = true
+                    }
+                    else {
+                        flag = false
+                        print("INVALID FLIGHT ID")
+                    }
+                    //print(newFlight.flightID)
+                    
+                    if (flag) {
                     
                     // Second API call must be within the first's block to remain async
                     // Don't ask idk how to explain it very well, just put things that
@@ -39,8 +51,8 @@ class FlightListViewController: UITableViewController {
                         if response.data != nil {
                             do {
                                 let json = try JSON(data: response.data!)
-                                print(json["flights"][0]["departure_delay"])
-                                print(json["flights"][0]["arrival_delay"])
+                                //print(json["flights"][0]["departure_delay"])
+                                //print(json["flights"][0]["arrival_delay"])
                                 newFlight.dest = String(json["flights"][0]["destination"]["code"].stringValue.dropFirst(1))
                                 newFlight.origin = String(json["flights"][0]["origin"]["code"].stringValue.dropFirst(1))
                                 newFlight.flightNo = flightAirline+flightId
@@ -67,6 +79,7 @@ class FlightListViewController: UITableViewController {
                             }
                         }
                     }
+                    }
                 } catch _ as NSError {
                     result(nil)
                 }
@@ -81,7 +94,9 @@ class FlightListViewController: UITableViewController {
     @IBAction func done(segue:UIStoryboardSegue) {
         let flightAddVC = segue.source as! FlightAddViewController
         fetchFlights(flightAirline: flightAddVC.flightAirlineString, flightId: flightAddVC.flightIdString, flightOrigin: flightAddVC.flightOriginString){(f: Flight?) -> Void in
-            flightList.append(f!)
+            if (flag) {
+                flightList.append(f!)
+            }
             
             self.tableView.reloadData()
         }
@@ -127,7 +142,7 @@ class FlightListViewController: UITableViewController {
                     group.enter()
                     let snap = child as! DataSnapshot
                     let flightDict = snap.value as! [String: Any]
-                    print(flightDict)
+                    //print(flightDict)
                     
                     var airlineVar = ""
                     if let airlineDB = flightDict["airline"] {
@@ -166,7 +181,7 @@ class FlightListViewController: UITableViewController {
                     }
                     flightList[count] = Flight(airline: airlineVar, date: dateVar, dest: destVar, flightID: JSON(rawValue: flightidVar) ?? "", flightNo: flightnoVar, origin: orgVar, status: statusVar, delay: delayVar)
                     
-                    print(flightList[count])
+                    //print(flightList[count])
                     count+=1
                     self.tableView.reloadData()
                     group.leave()

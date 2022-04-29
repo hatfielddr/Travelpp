@@ -949,22 +949,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="MTf-Xh-fQP">
-                                <rect key="frame" x="61" y="28" width="306" height="396"/>
+                                <rect key="frame" x="61" y="28" width="320" height="396"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vU-sW-1Gf" customClass="LoginContro">
-                                <rect key="frame" x="68" y="361" width="278" height="20.5"/>
+                                <rect key="frame" x="68" y="361" width="292" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9c-7s-VZm">
-                                <rect key="frame" x="68" y="449" width="278" height="20.5"/>
+                                <rect key="frame" x="68" y="449" width="292" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jY-m5-ImV">
-                                <rect key="frame" x="169.5" y="557" width="75" height="42"/>
+                                <rect key="frame" x="176.5" y="557" width="75" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7jY-m5-ImV" secondAttribute="height" multiplier="79:44" id="BVJ-nH-zdC"/>
                                 </constraints>

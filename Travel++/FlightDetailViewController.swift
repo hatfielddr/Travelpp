@@ -37,7 +37,7 @@ class FlightDetailViewController: UIViewController {
         status.text = flight?.status
         flightNo = flight?.flightNo ?? "Unknown"
         print("FlightNo = \(flightNo)")
-        let d = Int(flight!.delay)! / 60
+        let d = Int(flight?.delay ?? "0") ?? 0 / 60
         if d < 0 {
             delay.text = "Early: " + String(-d) + " minutes"
         }
