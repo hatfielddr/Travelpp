@@ -35,6 +35,7 @@ class MapViewController: UIViewController, UISearchResultsUpdating, CLLocationMa
         title = "Maps"
         
         //set up search bar
+        searchVC.hidesNavigationBarDuringPresentation = false
         searchVC.searchBar.backgroundColor = .black
         searchVC.searchResultsUpdater = self
         navigationItem.searchController = searchVC
